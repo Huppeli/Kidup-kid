@@ -15,7 +15,6 @@ import android.util.Log;
 
 import java.util.concurrent.TimeUnit;
 
-import static android.R.attr.value;
 
 
 public class CountDownService extends Service {
@@ -36,13 +35,7 @@ public class CountDownService extends Service {
     public int onStartCommand (Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
 
-        /* Save time to system */
-        SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 
-
-
-        timeLeft = sharedPref.getLong("Time",0);
-        Log.d("VEIKKO2", " onStartcommand " + timeLeft);
 
 
         Log.d(PREFS_NAME + "onstart" ,"" + timeLeft);
@@ -100,6 +93,12 @@ public class CountDownService extends Service {
     public void onCreate(){
         super.onCreate();
         Log.d("VEIKKO2", "On Create in the service");
+          /* Save time to system */
+        SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+
+        timeLeft = sharedPref.getLong("Time",0);
+        Log.d("VEIKKO2", " onStartcommand " + timeLeft);
+
         startTimer();
 
         IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_OFF);

@@ -23,7 +23,8 @@ public class BootReceiver extends BroadcastReceiver {
 
         }
         Log.d("VEIKKO2", "onReceive");
-        context.startService(new Intent(context, LockScreenService.class));
         context.startService(new Intent(context, CountDownService.class));
+        context.startService(new Intent(context, LockScreenService.class));
+
     }
 }

@@ -276,23 +276,23 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mIntent.putExtra("steps", steps);
         MainActivity.this.startService(mIntent);
         Log.d("VEIKKO", "sending steps " + steps);
-        long millis = (long) timeLeft;
+//        long millis = (long) timeLeft;
 
         registerReceiver(br, new IntentFilter(CountDownService.BROADCAST_ACTION));
         Log.d("COUNTDOWNSERVICE", "Registered broadcast receiver");
 
 
-        String hms = String.format("%02d:%02d:%02d" , TimeUnit.MILLISECONDS.toHours(millis),TimeUnit.MILLISECONDS.toMinutes(millis)-TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)) );
+//        String hms = String.format("%02d:%02d:%02d" , TimeUnit.MILLISECONDS.toHours(millis),TimeUnit.MILLISECONDS.toMinutes(millis)-TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)) );
 
         /* textViewTime.setText(hms); */
 
         /* Set PieView time */
 
-
-        pieView.setInnerText(hms);
-
-        Log.d("millis after unlock",String.valueOf(millis));
-        Log.d("hms",hms);
+//
+//        pieView.setInnerText(hms);
+//
+//        Log.d("millis after unlock",String.valueOf(millis));
+//        Log.d("hms",hms);
 
 //        timer = new CounterClass((long)timePause,1000 );
 //        timer.start();
