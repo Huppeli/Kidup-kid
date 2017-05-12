@@ -10,6 +10,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -27,6 +28,9 @@ import android.widget.Toast;
 import java.util.concurrent.TimeUnit;
 
 import az.plainpie.PieView;
+
+import static android.R.attr.value;
+import static com.kidup.kidup.CountDownService.PREFS_NAME;
 
 
 /**
@@ -73,6 +77,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     static float lastCount = 0;
     static float timeLeft = 0;
     static float timeGot = 0;
+
+    long millisUntilFinished = 0;
 
 //    float timePause = 0;
 
@@ -263,7 +269,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onResume() {
         super.onResume();
         Intent intent = getIntent();
-        timeLeft = intent.getFloatExtra("timeLeft", 0);
+        /* timeLeft = intent.getFloatExtra("timeLeft", 0); */
        /* tv_steps.setText(String.valueOf(steps)); */
         pieView2.setInnerText(String.valueOf(steps));
         Intent mIntent = new Intent(MainActivity.this, LockScreenService.class);
@@ -327,7 +333,25 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Log.d("running OP",String.valueOf(running));
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
+
+        SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putLong("Time",millisUntilFinished);
+
+
+        editor.commit();
+
+        /*Get data */
+        long value = sharedPref.getLong("Time",0);
+        Log.d("VEIKKO2","On destory" + value);
+        Log.d("VEIKKO2", "On Destroy");
+
+    }
     @Override
     public void onSensorChanged(SensorEvent event) {
         if(stepsInSensor == -1){
@@ -357,7 +381,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private void updateGUI(Intent intent) {
         if (intent.getExtras() != null) {
-            long millisUntilFinished = intent.getLongExtra("countdown", 0);
+            millisUntilFinished = intent.getLongExtra("countdown", 0);
             Log.d("COUNTDOWNSERVICE" , "countdown seconds remaining: " + millisUntilFinished / 1000);
             String hms = String.format("%02d:%02d:%02d" , TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
                     TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)-TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),

@@ -8,22 +8,44 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.util.Log;
 
 import java.util.concurrent.TimeUnit;
 
+import static android.R.attr.value;
+
+
 public class CountDownService extends Service {
+
+    public static final String PREFS_NAME = "MyPrefsFile";
 
     private static final String TAG = "CountDownService";
     public static final String BROADCAST_ACTION ="com.thedroidboy.lockscreentest";
     Intent bi = new Intent(BROADCAST_ACTION);
 
 
+    CountDownTimer mTimer = null;
+    long timeLeft = 0;
+    float timeGot = 0 ;
+    boolean timer_was_touched = false;
+
 
     public int onStartCommand (Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
+
+        /* Save time to system */
+        SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+
+
+
+        timeLeft = sharedPref.getLong("Time",0);
+        Log.d("VEIKKO2", " onStartcommand " + timeLeft);
+
+
+        Log.d(PREFS_NAME + "onstart" ,"" + timeLeft);
 //        Log.d("VEIKKO2", "Time got" + timeGot);
         if (intent != null) {
             timeGot = intent.getFloatExtra("timeGot", 0);
@@ -41,10 +63,7 @@ public class CountDownService extends Service {
     }
     @SuppressLint("NewApi")
 
-    CountDownTimer mTimer = null;
-    static long timeLeft = 9000000 ;
-    float timeGot = 0 ;
-    boolean timer_was_touched = false;
+
 
 //    public static class CounterClass extends CountDownTimer {
 //
@@ -90,10 +109,12 @@ public class CountDownService extends Service {
             @Override
             public void onReceive(Context context, Intent intent) {
                 Log.d("VEIKKO2", "ACTION_SCREEN_OFF");
-//                if (mTimer != null)
-//                {
-//                    mTimer.cancel();
-//                }
+
+
+
+
+
+
                 if (timer_was_touched == true){
                     mTimer.cancel();
                     Log.d("VEIKKO2", "cancel timer ");
@@ -177,6 +198,14 @@ public class CountDownService extends Service {
        // MainActivity.timer.start();
 
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        Log.d("VEIKKO2", "On Destroy");
+    }
+
 
     protected void startTimer()
     {
