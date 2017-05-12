@@ -1,7 +1,6 @@
 package com.kidup.kidup;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Service;
 import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
@@ -9,7 +8,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.util.Log;
@@ -19,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 public class CountDownService extends Service {
 
     private static final String TAG = "CountDownService";
-    public static final String BROADCAST_ACTION ="com.kidup.kidup";
+    public static final String BROADCAST_ACTION ="com.thedroidboy.lockscreentest";
     Intent bi = new Intent(BROADCAST_ACTION);
 
 
@@ -171,12 +169,12 @@ public class CountDownService extends Service {
                         }
                     }
                 }.start();
-            }
+                }
 
         },ScreenOn );
 
-        // MainActivity.timer = new CounterClass((long)MainActivity.timeLeft,1000);
-        // MainActivity.timer.start();
+       // MainActivity.timer = new CounterClass((long)MainActivity.timeLeft,1000);
+       // MainActivity.timer.start();
 
     }
 

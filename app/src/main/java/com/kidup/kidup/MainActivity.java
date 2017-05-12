@@ -1,7 +1,5 @@
 package com.kidup.kidup;
 
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.NotificationManager;
@@ -16,9 +14,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -26,9 +22,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
-
 
 import java.util.concurrent.TimeUnit;
 
@@ -82,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 //    float timePause = 0;
 
-    //
+//
 //    public static CountDownService.CounterClass timer = new CountDownService.CounterClass(0, 1000);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,10 +143,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             public void onClick(View v){
 //
 
-                boolean active = deviceManager.isAdminActive(compName);
-                if (active) {
-                    deviceManager.lockNow();
-                }
+                    boolean active = deviceManager.isAdminActive(compName);
+                    if (active) {
+                        deviceManager.lockNow();
+                    }
 
             }
         });
@@ -324,11 +318,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onPause();
 
 
+        unregisterReceiver(br);
+
+
 //        timePause = timeLeft;
 //        timer.cancel();
         running = true;
         Log.d("running OP",String.valueOf(running));
     }
+
 
     @Override
     public void onSensorChanged(SensorEvent event) {
