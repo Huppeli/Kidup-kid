@@ -93,10 +93,23 @@ public class CountDownService extends Service {
     public void onCreate(){
         super.onCreate();
         Log.d("VEIKKO2", "On Create in the service");
-          /* Save time to system */
+
+        /* Get time to system */
         SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 
+        SharedPreferences.Editor editor = sharedPref.edit();
+        Log.d("VEIKKO2", " time saved");
+
+        editor.commit();
+
+        /* If no time left give user 20 */
+        if ( sharedPref == null  ) {
+            editor.putLong("Time",20000);
+
+        }
+
         timeLeft = sharedPref.getLong("Time",0);
+
         Log.d("VEIKKO2", " onStartcommand " + timeLeft);
 
         startTimer();
@@ -185,6 +198,9 @@ public class CountDownService extends Service {
                         if (active) {
                             Log.d("VEIKKO2", "Locking the screen!");
 
+                            /* If user has no time left give 100 seconds */
+                            timeLeft = 100000;
+
                             deviceManager.lockNow();
                         }
                     }
@@ -258,6 +274,7 @@ public class CountDownService extends Service {
                 boolean active = deviceManager.isAdminActive(compName);
                 if (active) {
                     Log.d("VEIKKO2", "Locking the screen!");
+                    timeLeft = 100;
 
                     deviceManager.lockNow();
                 }
