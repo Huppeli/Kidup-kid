@@ -1,6 +1,7 @@
 package com.kidup.kidup;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
@@ -11,6 +12,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import java.util.concurrent.TimeUnit;
@@ -94,7 +96,7 @@ public class CountDownService extends Service {
         super.onCreate();
         Log.d("VEIKKO2", "On Create in the service");
 
-        /* Get time to system */
+        /* Get time from system */
         SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -102,7 +104,7 @@ public class CountDownService extends Service {
 
         editor.commit();
 
-        /* If no time left give user 20 */
+        /* If no time left give user 20 seconds */
         if ( sharedPref == null  ) {
             editor.putLong("Time",20000);
 
@@ -136,7 +138,7 @@ public class CountDownService extends Service {
 
         registerReceiver(new BroadcastReceiver() {
             @Override
-            public void onReceive(Context context, Intent intent) {
+            public void onReceive(final Context context, Intent intent) {
                 Log.d("VEIKKO2", "ACTION_SCREEN_ON");
                 if (mTimer != null)
                 {
@@ -170,10 +172,28 @@ public class CountDownService extends Service {
                         bi.putExtra("countdown", millisUntilFinished);
                         sendBroadcast(bi);
 
+
                         System.out.println(hms);
                        /* MainActivity.textViewTime.setText(hms); */
                        /* MainActivity.pieView.setInnerText(hms); */
                         timeLeft = millisUntilFinished;
+
+                        if ( timeLeft < 300000) {
+                            Log.d("VEIKKO2","Time left is low");
+
+                            NotificationCompat.Builder mBuilder =
+                                    new NotificationCompat.Builder(context)
+                                            .setSmallIcon(R.drawable.panda_proud_gray)
+                                            .setContentTitle("Hey you!")
+                                            .setContentText("You don't have much time left so move!");
+
+                            int mNotificationId = 001;
+
+                            NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+                            // build and issue
+                            mNotifyMgr.notify(mNotificationId, mBuilder.build());
+                        }
 
                         /*
                         Intent mIntent = new Intent(CountDownService.this, MainActivity.class);
@@ -199,7 +219,7 @@ public class CountDownService extends Service {
                             Log.d("VEIKKO2", "Locking the screen!");
 
                             /* If user has no time left give 100 seconds */
-                            timeLeft = 100000;
+                            timeLeft = 200000;
 
                             deviceManager.lockNow();
                         }
@@ -274,7 +294,7 @@ public class CountDownService extends Service {
                 boolean active = deviceManager.isAdminActive(compName);
                 if (active) {
                     Log.d("VEIKKO2", "Locking the screen!");
-                    timeLeft = 100;
+                    timeLeft = 200000;
 
                     deviceManager.lockNow();
                 }

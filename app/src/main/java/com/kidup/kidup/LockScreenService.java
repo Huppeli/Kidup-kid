@@ -65,6 +65,8 @@ public class LockScreenService extends Service implements View.OnClickListener {
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION,// hiding the home screen button
                 PixelFormat.TRANSLUCENT);
         Log.d("steps LS",String.valueOf(MainActivity.steps));
+        Log.d("VEIKKO2", "Current time " + String.valueOf(MainActivity.timeLeft));
+
 
 
     }
@@ -78,6 +80,8 @@ public class LockScreenService extends Service implements View.OnClickListener {
         View btnUnlock = linearLayout.findViewById(R.id.btn_close);
         btnUnlock.setOnClickListener(this);
         View btnEarnTime = linearLayout.findViewById(R.id.btnFinish);
+
+
 
 
 //        tv_steps.setText(String.valueOf(MainActivity.steps), TextView.BufferType.EDITABLE);

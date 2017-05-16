@@ -53,6 +53,7 @@
                 />
             <!-- layout_margin = hack to get it center -->
             <TextView
+                android:id="@+id/lockscreenTimer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Your current screentime"
@@ -93,7 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/btnFinish"
-                android:visibility="gone"
+
                 />
             <Button
                 android:id="@+id/btn_close"

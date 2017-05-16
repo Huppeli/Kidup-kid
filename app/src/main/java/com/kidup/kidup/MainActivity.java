@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         startService(new Intent(this, CountDownService.class));
         Log.i("CountDownService", "Started service");
 
-        btnLock = (Button) findViewById(R.id.btnLock);
+        /*btnLock = (Button) findViewById(R.id.btnLock); */
 
         deviceManager = (DevicePolicyManager)getSystemService(Context.DEVICE_POLICY_SERVICE);
         activityManager = (ActivityManager)getSystemService(
@@ -144,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 //        Log.d("TimeLeft", String.valueOf(timeLeft));
         Log.d("Steps", String.valueOf(steps));
 
+        /*
         btnLock.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -156,9 +157,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
             }
         });
-
-
-
+        */
         btnFinish.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -395,20 +394,54 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     }
 
-    public void addNotification(){
-        NotificationCompat.Builder builder =  new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("10 mins left")
-                .setContentText("You need to move more or the phone will lock");
+    /*
+    public static void createNotification() {
 
-        Intent notificationIntent = new Intent(this, MainActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0 , notificationIntent , PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(contentIntent);
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.panda_proud_gray)
+                        .setContentTitle("My notification")
+                        .setContentText("Hello World!");
 
-        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(0, builder.build());
+        int mNotificationId = 001;
 
+        NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        // build and issue
+        mNotifyMgr.notify(mNotificationId, mBuilder.build());
     }
+
+
+
+    /* Unused notification code
+
+    private void createNotification(int nId, int iconRes, String title, String body) {
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
+                this).setSmallIcon(iconRes)
+                .setContentTitle(title)
+                .setContentText(body);
+
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        // nId allows you to update notification later on.
+        mNotificationManager.notify(nId, mBuilder.build());
+    }
+    */
+
+//
+//    public void addNotification(){
+//        NotificationCompat.Builder builder =  new NotificationCompat.Builder(this)
+//                .setSmallIcon(R.mipmap.ic_launcher)
+//                .setContentTitle("10 mins left")
+//                .setContentText("You need to move more or the phone will lock");
+//
+//        Intent notificationIntent = new Intent(this, MainActivity.class);
+//        PendingIntent contentIntent = PendingIntent.getActivity(this, 0 , notificationIntent , PendingIntent.FLAG_UPDATE_CURRENT);
+//        builder.setContentIntent(contentIntent);
+//
+//        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//        manager.notify(0, builder.build());
+//
+//    }
 
 //    public static void startTimer(){
 //        Log.d("timer ",String.valueOf(timeLeft));

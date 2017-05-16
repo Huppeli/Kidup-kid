@@ -161,6 +161,7 @@
                 android:layout_height="wrap_content"
                 android:text="Activity"
                 android:textSize="16dp"
+                android:layout_marginBottom="20dp"
                 android:textStyle="bold"
                 android:textColor="@color/kidupDarkBlue"
                 android:layout_centerInParent="true"
@@ -178,7 +179,6 @@
                 plainpie:inner_text_visibility="true"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
-
                 />
 
             <!--
@@ -219,14 +219,7 @@
             android:background="@drawable/layout_bg_white"
             android:gravity="center"
             >
-            <Button
-                android:id="@+id/btn_close"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:scaleType="fitCenter"
-                android:layout_centerInParent="true"
-                android:src="@drawable/ic_assignment"
-                />
+
             <!--
             old button
             <Button
@@ -236,16 +229,51 @@
 
                 />
             -->
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/btnLock"
-                android:text="Test button to lock phone"
-                android:scaleType="fitCenter"
-                android:layout_centerInParent="true"
-                android:layout_height="100dp"
-                android:layout_width="100dp"
+
+            <TextView
+                android:id="@+id/yourTasks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your tasks"
+                android:layout_marginTop="10dp"
+                android:textSize="16dp"
                 android:textColor="@color/kidupDarkBlue"
-                app:backgroundTint="@color/kidupNewGreen"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginBottom="20dp"
+                android:layout_centerInParent="true"
                 />
+
+            <TextView
+                android:id="@+id/currentTasks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:textSize="46dp"
+                android:textColor="@color/kidupDarkBlue"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_below="@+id/yourTasks"
+                android:layout_centerInParent="true"
+                />
+
+            <TextView
+                android:id="@+id/fillerTasks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tasks remaining"
+                android:layout_marginTop="10dp"
+                android:textSize="16dp"
+                android:textColor="@color/kidupDarkBlue"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginBottom="20dp"
+                android:layout_centerInParent="true"
+                android:layout_below="@id/currentTasks"
+                />
+
+
         </RelativeLayout>
     </LinearLayout>
 </TableLayout>
