@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.concurrent.TimeUnit;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     RelativeLayout btnFinish;
 
     Button btnLock;
+    TextView tv_currentTasks;
 
 //    Button enable;
 
@@ -211,6 +213,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION,
                 "Additional text explaining why this needs to be added.");
         startActivityForResult(intent, RESULT_ENABLE);
+
+
+        tv_currentTasks = (TextView)findViewById(R.id.currentTasks);
+        tv_currentTasks.setOnClickListener( new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent i = new Intent(MainActivity.this,list_tasks.class);
+                startActivity(i);
+            }
+        });
+
+
+
+
     }
 
     private BroadcastReceiver br = new BroadcastReceiver() {
