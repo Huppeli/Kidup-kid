@@ -103,11 +103,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         compName = new ComponentName(this, MyAdmin.class);
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
         // Remove default title text
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setLogo(R.drawable.kidup_logo);
+        //getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //getSupportActionBar().setLogo(R.drawable.kidup_logo);
 
 
 
@@ -121,20 +121,23 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         /* Initialize pieview and set colors */
         pieView = (PieView) findViewById(R.id.pieView);
         pieView.setInnerText("00:00:00");
-        pieView.setPercentageBackgroundColor(getResources().getColor(R.color.kidupPercentageFill));
+        pieView.setPercentageBackgroundColor(getResources().getColor(R.color.kidupBrightBlue));
         pieView.setMainBackgroundColor(getResources().getColor(R.color.colorGrey));
         pieView.setTextColor(getResources().getColor(R.color.kidupDarkBlue));
         pieView.setInnerBackgroundColor(getResources().getColor(R.color.colorWhite));
+        pieView.setPieInnerPadding(70);
+
 
         /* textViewTime.setText("00:00:00"); */
 
         /* Initialize pieview2 and set colors */
         pieView2 = (PieView) findViewById(R.id.pieView2);
         pieView2.setInnerText("#### steps");
-        pieView2.setPercentageBackgroundColor(getResources().getColor(R.color.kidupNewGreen));
+        pieView2.setPercentageBackgroundColor(getResources().getColor(R.color.kidupBrightBlue));
         pieView2.setMainBackgroundColor(getResources().getColor(R.color.colorGrey));
         pieView2.setTextColor(getResources().getColor(R.color.kidupDarkBlue));
         pieView2.setInnerBackgroundColor(getResources().getColor(R.color.colorWhite));
+        pieView2.setPieInnerPadding(70);
 
 
         /* tv_steps = (TextView) findViewById(R.id.tv_steps); */

@@ -29,37 +29,42 @@
         android:weightSum="1"
         android:background="@color/colorAqua">>
     -->
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:custom="http://schemas.android.com/apk/res-auto"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:minHeight="?attr/actionBarSize"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            app:titleTextColor="@android:color/white"
-            android:background="?attr/colorPrimary">
-
-            <ImageView
-                android:id="@+id/toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/kidup_logo_icon"
-                android:textColor="@android:color/white"
-                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-                android:layout_gravity="center"
-                />
-
-        </android.support.v7.widget.Toolbar>
-
+        <ImageView
+            android:id="@+id/kidupLogo"
+            android:layout_marginLeft="10dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/kidup_logo_icon"/>
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="25dp"
+            android:layout_alignParentRight="true"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/kidupDarkBlue"
+            android:text="Pekka"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:textSize="10sp"
+            android:textColor="@color/kidupDarkBlue"
+            android:text="Last update: Now"
+            android:layout_below="@+id/userName"
+            />
         <!-- Layout for content is here. This can be a RelativeLayout  -->
-
-    </LinearLayout>
+    </RelativeLayout>
     <LinearLayout
         android:id="@+id/tableRow1"
         android:layout_height="0dp"
@@ -74,23 +79,35 @@
             android:gravity="center"
             android:id="@+id/btnFinish"
             >
-            <az.plainpie.PieView
-                android:id="@+id/pieView"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_centerInParent="true"
-                plainpie:inner_pie_padding="20"
-                plainpie:percentage="50"
-                plainpie:percentage_size="25"
-                plainpie:inner_text_visibility="true"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
-                />
-            <!-- layout_margin = hack to get it center -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tap to convert"
+                android:text="Your screentime"
+
+                android:textSize="16sp"
+                android:textColor="@color/kidupDarkBlue"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_centerHorizontal="true"
+                android:layout_above="@+id/pieView"/>
+            <az.plainpie.PieView
+                android:id="@+id/pieView"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_centerInParent="true"
+                plainpie:inner_pie_padding="25"
+                plainpie:percentage="75"
+                plainpie:percentage_size="22"
+                plainpie:inner_text_visibility="true"
+                android:layout_marginBottom="10dp"
+                />
+            <!-- layout_margin = hack to get it center -->
+            <TextView
+                android:id="@+id/tapThisText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tap this"
                 android:textSize="16dp"
                 android:textStyle="bold"
                 android:textColor="@color/kidupDarkBlue"
@@ -100,24 +117,11 @@
                 android:id="@+id/textSmaller"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/pieView"
-                android:textSize="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_centerInParent="true"
-                android:text="Activity into screentime"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Your screentime"
-                android:layout_marginTop="10dp"
-                android:textSize="16dp"
+                android:textSize="10sp"
+                android:text="Convert activity into screentime"
                 android:textColor="@color/kidupDarkBlue"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:layout_marginBottom="20dp"
-                android:layout_centerInParent="true"
-                android:layout_above="@+id/pieView"/>
+                android:layout_below="@+id/tapThisText"
+                android:layout_centerHorizontal="true"/>
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dp"
@@ -125,21 +129,60 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:background="@drawable/layout_bg_white"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/pandaImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="40dp"
-                android:src="@drawable/panda_proud_gray"/>
+            android:gravity="center"
+            >
             <TextView
+                android:id="@+id/yourTasks"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Good work!"
+                android:text="Helping hands"
                 android:textSize="16dp"
+                android:textColor="@color/kidupDarkBlue"
+                android:textStyle="bold"
                 android:layout_centerInParent="true"
-                android:layout_alignBottom="@id/pandaImage"
-                android:layout_marginBottom="-20dp"/>
+                android:layout_marginBottom="20dp"
+                />
+            <TextView
+                android:id="@+id/currentTasks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textSize="76sp"
+                android:textColor="@color/kidupBrightBlue"
+                android:textStyle="bold"
+                android:layout_below="@+id/yourTasks"
+                android:layout_alignLeft="@+id/yourTasks"
+                android:layout_alignStart="@+id/yourTasks" />
+            <TextView
+                android:id="@+id/currenttaskMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/ 3"
+                android:textSize="32sp"
+                android:textColor="@color/kidupBrightBlue"
+                android:textStyle="bold"
+                android:layout_alignBaseline="@+id/currentTasks"
+                android:layout_alignBottom="@+id/currentTasks"
+                android:layout_toRightOf="@+id/currentTasks"
+                android:layout_toEndOf="@+id/currentTasks" />
+
+            <TextView
+                android:id="@+id/fillerTasks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tasks remaining"
+                android:layout_marginTop="30dp"
+                android:textSize="16dp"
+                android:textColor="@color/kidupDarkBlue"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginBottom="20dp"
+
+                android:layout_centerInParent="true"
+                android:layout_below="@id/currentTasks"
+
+                />
+
         </RelativeLayout>
     </LinearLayout>
     <LinearLayout
@@ -160,121 +203,84 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Activity"
-                android:textSize="16dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginTop="2dp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@color/kidupDarkBlue"
                 android:layout_centerInParent="true"
                 android:layout_alignParentTop="true"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:layout_above="@+id/pieView2"
                 />
             <az.plainpie.PieView
                 android:id="@+id/pieView2"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
                 android:layout_centerInParent="true"
-                android:layout_below="@+id/activityHeader"
-                plainpie:inner_pie_padding="20"
+                plainpie:inner_pie_padding="25"
                 plainpie:percentage="50"
-                plainpie:percentage_size="25"
+                plainpie:percentage_size="22"
                 plainpie:inner_text_visibility="true"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 />
-
-            <!--
             <TextView
-                android:text="0"
-                android:textSize="40dp"
-                android:layout_centerInParent="true"
-                android:textColor="@color/colorAccent"
-                android:fontFamily="sans-serif"
+                android:id="@+id/stepTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:id="@+id/tv_steps"/>
-                -->
-            <!--
-                Old textview to show time
-            <TextView
-                android:textSize="25sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textViewTime" />
-                -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Current step count"
+                android:text="Day's total XXXX"
                 android:textSize="16dp"
                 android:textStyle="bold"
                 android:textColor="@color/kidupDarkBlue"
                 android:layout_below="@+id/pieView2"
                 android:layout_centerHorizontal="true"/>
+            <TextView
+                android:id="@+id/stepTarget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Daily target: 6600"
+                android:textSize="10sp"
+                android:textColor="@color/kidupDarkBlue"
+                android:layout_below="@id/stepTotal"
+                android:layout_centerHorizontal="true"/>
         </RelativeLayout>
         <RelativeLayout
-            android:layout_marginLeft="10dp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:background="@drawable/layout_bg_white"
-            android:gravity="center"
-            >
-
-            <!--
-            old button
-            <Button
-                android:id="@+id/btnLock"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-
-                />
-            -->
-
+            android:gravity="center">
             <TextView
-                android:id="@+id/yourTasks"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Your tasks"
-                android:layout_marginTop="10dp"
-                android:textSize="16dp"
+                android:text="Let's have fun"
+                android:textSize="16sp"
                 android:textColor="@color/kidupDarkBlue"
                 android:textStyle="bold"
                 android:gravity="center"
-                android:layout_marginBottom="20dp"
-                android:layout_centerInParent="true"
-                />
-
+                android:layout_marginBottom="10dp"
+                android:layout_centerHorizontal="true"
+                android:layout_above="@+id/pandaImage"/>
+            <ImageView
+                android:id="@+id/pandaImage"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/panda_phone_gray"
+                android:layout_marginBottom="10dp"/>
             <TextView
-                android:id="@+id/currentTasks"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3"
-                android:textSize="46dp"
-                android:textColor="@color/kidupDarkBlue"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
-                android:layout_below="@+id/yourTasks"
-                android:layout_centerInParent="true"
-                />
-
-            <TextView
-                android:id="@+id/fillerTasks"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tasks remaining"
-                android:layout_marginTop="10dp"
+                android:text="Click me to unlock"
                 android:textSize="16dp"
                 android:textColor="@color/kidupDarkBlue"
                 android:textStyle="bold"
-                android:gravity="center"
-                android:layout_marginBottom="20dp"
                 android:layout_centerInParent="true"
-                android:layout_below="@id/currentTasks"
-                />
-
-
+                android:layout_alignBottom="@id/pandaImage"
+                android:layout_marginBottom="-20dp"/>
         </RelativeLayout>
+
     </LinearLayout>
 </TableLayout>
 <!--
