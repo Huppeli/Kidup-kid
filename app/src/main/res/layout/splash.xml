@@ -6,8 +6,8 @@
     <ImageView
         android:id="@+id/splashscreen"
         android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:src="@drawable/panda_proud_gray"
+        android:layout_height="wrap_content"
+        android:src="@drawable/splash_screen"
         android:layout_gravity="center"/>
 
 </LinearLayout>
