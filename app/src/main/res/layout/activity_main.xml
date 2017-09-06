@@ -10,6 +10,10 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.kidup.kidup.MainActivity"
     android:background="#ebebeb">
+<<<<<<< HEAD
+=======
+
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
     <!--
     <?xml version="1.0" encoding="utf-8"?>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -69,7 +73,11 @@
         android:layout_height="0dp"
         android:layout_width="match_parent"
         android:layout_weight="1"
+<<<<<<< HEAD
         android:layout_margin="5dp">
+=======
+        android:layout_margin="10dp">
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -87,7 +95,10 @@
                 android:textStyle="bold"
                 android:gravity="center"
                 android:layout_marginBottom="10dp"
+<<<<<<< HEAD
                 android:layout_marginTop="-20dp"
+=======
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
                 android:layout_centerHorizontal="true"
                 android:layout_above="@+id/pieView"/>
             <az.plainpie.PieView
@@ -107,7 +118,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tap this"
+<<<<<<< HEAD
                 android:textSize="16sp"
+=======
+                android:textSize="16dp"
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
                 android:textStyle="bold"
                 android:textColor="@color/kidupDarkBlue"
                 android:layout_below="@+id/pieView"
@@ -140,7 +155,10 @@
                 android:textStyle="bold"
                 android:layout_centerInParent="true"
                 android:layout_marginBottom="20dp"
+<<<<<<< HEAD
                 android:layout_marginTop="-20dp"
+=======
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
                 />
             <TextView
                 android:id="@+id/currentTasks"
@@ -165,6 +183,10 @@
                 android:layout_alignBottom="@+id/currentTasks"
                 android:layout_toRightOf="@+id/currentTasks"
                 android:layout_toEndOf="@+id/currentTasks" />
+<<<<<<< HEAD
+=======
+
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
             <TextView
                 android:id="@+id/fillerTasks"
                 android:layout_width="wrap_content"
@@ -176,9 +198,18 @@
                 android:textStyle="bold"
                 android:gravity="center"
                 android:layout_marginBottom="20dp"
+<<<<<<< HEAD
                 android:layout_centerInParent="true"
                 android:layout_below="@id/currentTasks"
                 />
+=======
+
+                android:layout_centerInParent="true"
+                android:layout_below="@id/currentTasks"
+
+                />
+
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
         </RelativeLayout>
     </LinearLayout>
     <LinearLayout
@@ -186,7 +217,11 @@
         android:layout_height="0dp"
         android:layout_width="match_parent"
         android:layout_weight="1"
+<<<<<<< HEAD
         android:layout_margin="5dp">
+=======
+        android:layout_margin="10dp">
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -199,13 +234,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Activity"
+<<<<<<< HEAD
+=======
+                android:layout_marginTop="2dp"
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@color/kidupDarkBlue"
                 android:layout_centerInParent="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginBottom="10dp"
+<<<<<<< HEAD
                 android:layout_marginTop="-20dp"
+=======
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
                 android:gravity="center"
                 android:layout_above="@+id/pieView2"
                 />
@@ -250,11 +292,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+<<<<<<< HEAD
+=======
+                android:text="Let's have fun"
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
                 android:textSize="16sp"
                 android:textColor="@color/kidupDarkBlue"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:layout_marginBottom="10dp"
+<<<<<<< HEAD
                 android:layout_marginTop="-100dp"
                 android:layout_centerHorizontal="true"
                 android:layout_above="@+id/pandaImage"/>
@@ -265,22 +312,39 @@
                 android:id="@+id/pandaImage"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
+=======
+                android:layout_centerHorizontal="true"
+                android:layout_above="@+id/pandaImage"/>
+            <ImageView
+                android:id="@+id/pandaImage"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/panda_phone_gray"
                 android:layout_marginBottom="10dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+<<<<<<< HEAD
+=======
+                android:text="Click me to unlock"
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
                 android:textSize="16dp"
                 android:textColor="@color/kidupDarkBlue"
                 android:textStyle="bold"
                 android:layout_centerInParent="true"
                 android:layout_alignBottom="@id/pandaImage"
                 android:layout_marginBottom="-20dp"/>
+<<<<<<< HEAD
                <!--
                 android:text="Click me to unlock"
                 -->
         </RelativeLayout>
+=======
+        </RelativeLayout>
+
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
     </LinearLayout>
 </TableLayout>
 <!--

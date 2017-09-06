@@ -4,7 +4,10 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Kidup.iml" filepath="$PROJECT_DIR$/Kidup.iml" />
       <module fileurl="file://$PROJECT_DIR$/Kidup-kid.iml" filepath="$PROJECT_DIR$/Kidup-kid.iml" />
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/Kidup-kid-master.iml" filepath="$PROJECT_DIR$/Kidup-kid-master.iml" />
+=======
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

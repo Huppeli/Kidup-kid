@@ -7,7 +7,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+<<<<<<< HEAD
 import android.content.SharedPreferences;
+=======
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
 import android.graphics.PixelFormat;
 import android.os.IBinder;
 import android.util.Log;
@@ -17,8 +20,11 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+<<<<<<< HEAD
 import java.util.concurrent.TimeUnit;
 
+=======
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
 
 /**
  * Created by t3math00 on 4/5/2017.
@@ -33,14 +39,21 @@ public class LockScreenService extends Service implements View.OnClickListener {
     private WindowManager windowManager;
     static float timeGot = 0;
     static float steps = 0;
+<<<<<<< HEAD
     public static final String PREFS_NAME = "MyPrefsFile";
     long timeLeftInSeconds = 0;
+=======
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
 
     public int onStartCommand (Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
 //
         if (intent != null) {
+<<<<<<< HEAD
             Log.d("VEIKKO1", "Recieving some steps" );
+=======
+            Log.d("VEIKKO", "Recieving some steps" );
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
             steps = intent.getFloatExtra("steps", 0);
 
             Log.d("VEIKKO2", "Steps in LC onchange " + steps);
@@ -71,17 +84,27 @@ public class LockScreenService extends Service implements View.OnClickListener {
                 PixelFormat.TRANSLUCENT);
         Log.d("steps LS",String.valueOf(MainActivity.steps));
         Log.d("VEIKKO2", "Current time " + String.valueOf(MainActivity.timeLeft));
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
     }
 
 
 
     private void init() {
+<<<<<<< HEAD
 
+=======
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
         linearLayout = new LinearLayout(this);
         windowManager.addView(linearLayout, layoutParams);
         ((LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE)).inflate(R.layout.lock_screen, linearLayout);
         View btnUnlock = linearLayout.findViewById(R.id.btn_close);
         btnUnlock.setOnClickListener(this);
+<<<<<<< HEAD
         TextView timeLeft = (TextView) linearLayout.findViewById(R.id.textViewTime);
         SharedPreferences shared = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         timeLeftInSeconds = shared.getLong("Time", 0);
@@ -94,6 +117,9 @@ public class LockScreenService extends Service implements View.OnClickListener {
         timeLeft.append(String.valueOf(hms));
 
         //View btnEarnTime = linearLayout.findViewById(R.id.btnFinish);
+=======
+        View btnEarnTime = linearLayout.findViewById(R.id.btnFinish);
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
 
 
 
@@ -101,7 +127,11 @@ public class LockScreenService extends Service implements View.OnClickListener {
 //        tv_steps.setText(String.valueOf(MainActivity.steps), TextView.BufferType.EDITABLE);
 //        btnEarnTime.setOnClickListener(this);
 
+<<<<<<< HEAD
         /*btnEarnTime.setOnClickListener(new View.OnClickListener(){
+=======
+        btnEarnTime.setOnClickListener(new View.OnClickListener(){
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
             @Override
             public void onClick(View v){
 
@@ -122,10 +152,16 @@ public class LockScreenService extends Service implements View.OnClickListener {
                 Log.d("timeleft after LSbtn",String.valueOf(MainActivity.timeLeft));
                 Log.d("lastcount after LSbtn",String.valueOf(MainActivity.lastCount));
             }
+<<<<<<< HEAD
         });*/
     }
 
 
+=======
+        });
+    }
+
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
     @Override
     public void onClick (View view){
 //        if (MainActivity.timeLeft > 0) {
@@ -136,7 +172,10 @@ public class LockScreenService extends Service implements View.OnClickListener {
         linearLayout = null;
 //        }
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
     @Override
     public void onDestroy () {
         unregisterReceiver(screenReceiver);

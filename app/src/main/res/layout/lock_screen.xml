@@ -80,16 +80,26 @@
             android:background="@drawable/layout_bg_white"
             android:gravity="center"
             >
+<<<<<<< HEAD
+=======
+            <!--
+                Old textview to show time
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
             <TextView
                 android:textSize="25sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+<<<<<<< HEAD
                 android:id="@+id/textViewTime"
                 android:textColor="@color/kidupDarkBlue"
                 android:gravity = "center"
                 android:text=""/>
 
             <!--
+=======
+                android:id="@+id/textViewTime" />
+                -->
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
             <Button
                 android:text="Transfer steps to time"
                 android:textSize="10dp"
@@ -98,7 +108,10 @@
                 android:id="@+id/btnFinish"
 
                 />
+<<<<<<< HEAD
             -->
+=======
+>>>>>>> dfe131ace2368a137c6219fb8ae7032c825d915d
             <Button
                 android:id="@+id/btn_close"
                 android:layout_width="match_parent"
