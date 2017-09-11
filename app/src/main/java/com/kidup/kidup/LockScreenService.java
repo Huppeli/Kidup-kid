@@ -79,14 +79,9 @@ public class LockScreenService extends Service implements View.OnClickListener {
         ((LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE)).inflate(R.layout.lock_screen, linearLayout);
         View btnUnlock = linearLayout.findViewById(R.id.btn_close);
         btnUnlock.setOnClickListener(this);
-        View btnEarnTime = linearLayout.findViewById(R.id.btnFinish);
-
-
-
-
 //        tv_steps.setText(String.valueOf(MainActivity.steps), TextView.BufferType.EDITABLE);
 //        btnEarnTime.setOnClickListener(this);
-
+/*
         btnEarnTime.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -109,6 +104,7 @@ public class LockScreenService extends Service implements View.OnClickListener {
                 Log.d("lastcount after LSbtn",String.valueOf(MainActivity.lastCount));
             }
         });
+        */
     }
 
     @Override

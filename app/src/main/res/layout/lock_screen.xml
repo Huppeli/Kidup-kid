@@ -89,14 +89,6 @@
                 android:id="@+id/textViewTime" />
                 -->
             <Button
-                android:text="Transfer steps to time"
-                android:textSize="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/btnFinish"
-
-                />
-            <Button
                 android:id="@+id/btn_close"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
