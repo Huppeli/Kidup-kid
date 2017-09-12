@@ -129,7 +129,6 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:background="@drawable/layout_bg_white"
-            android:gravity="center"
             >
             <TextView
                 android:id="@+id/yourTasks"
@@ -140,7 +139,7 @@
                 android:textColor="@color/kidupDarkBlue"
                 android:textStyle="bold"
                 android:layout_centerInParent="true"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="40dp"
                 android:layout_above="@+id/currentTasks"
                 />
             <TextView
@@ -151,6 +150,7 @@
                 android:textSize="76sp"
                 android:textColor="@color/kidupBrightBlue"
                 android:textStyle="bold"
+                android:layout_centerVertical="true"
                 android:layout_alignLeft="@+id/yourTasks"
                 android:layout_alignStart="@+id/yourTasks" />
             <TextView
