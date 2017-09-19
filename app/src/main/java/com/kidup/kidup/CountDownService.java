@@ -15,6 +15,10 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.util.concurrent.TimeUnit;
 
 
@@ -96,6 +100,37 @@ public class CountDownService extends Service {
         super.onCreate();
         Log.d("VEIKKO2", "On Create in the service");
 
+        /* Saving time to file*/
+
+        String filename = "myfile";
+        String teksti = "Hello World";
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+            outputStream.write(teksti.getBytes());
+            outputStream.close();
+            Log.d("VEIKKO","Saved to file");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            FileInputStream inputStream = openFileInput(filename);
+            BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
+            StringBuilder total = new StringBuilder();
+            String line;
+            while ((line = r.readLine()) != null) {
+                total.append(line);
+            }
+            r.close();
+            inputStream.close();
+            Log.d("VEIKKO", "File contents: " + total);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         /* Get time from system */
         SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 
@@ -107,7 +142,6 @@ public class CountDownService extends Service {
         /* If no time left give user 20 seconds */
         if ( sharedPref == null  ) {
             editor.putLong("Time",20000);
-
         }
 
         timeLeft = sharedPref.getLong("Time",0);
@@ -123,11 +157,6 @@ public class CountDownService extends Service {
             @Override
             public void onReceive(Context context, Intent intent) {
                 Log.d("VEIKKO2", "ACTION_SCREEN_OFF");
-
-
-
-
-
 
                 if (timer_was_touched == true){
                     mTimer.cancel();
@@ -185,7 +214,7 @@ public class CountDownService extends Service {
                                     new NotificationCompat.Builder(context)
                                             .setSmallIcon(R.drawable.panda_proud_gray)
                                             .setContentTitle("Hey you!")
-                                            .setContentText("You don't have much time left so move!");
+                                            .setContentText("You have less than 5 minutes left!");
 
                             int mNotificationId = 001;
 

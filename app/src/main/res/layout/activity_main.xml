@@ -10,7 +10,6 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.kidup.kidup.MainActivity"
     android:background="#ebebeb">
-
     <!--
     <?xml version="1.0" encoding="utf-8"?>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -249,10 +248,21 @@
             android:layout_weight="1"
             android:background="@drawable/layout_bg_white"
             android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Activity level"
+                android:textColor="@color/kidupDarkBlue"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_above="@+id/pandaImage"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                />
             <ImageView
                 android:id="@+id/pandaImage"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/panda_phone_gray"
                 android:layout_marginBottom="10dp"/>
