@@ -100,36 +100,6 @@ public class CountDownService extends Service {
         super.onCreate();
         Log.d("VEIKKO2", "On Create in the service");
 
-        /* Saving time to file*/
-
-        String filename = "myfile";
-        String teksti = "Hello World";
-        FileOutputStream outputStream;
-
-        try {
-            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-            outputStream.write(teksti.getBytes());
-            outputStream.close();
-            Log.d("VEIKKO","Saved to file");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            FileInputStream inputStream = openFileInput(filename);
-            BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
-            StringBuilder total = new StringBuilder();
-            String line;
-            while ((line = r.readLine()) != null) {
-                total.append(line);
-            }
-            r.close();
-            inputStream.close();
-            Log.d("VEIKKO", "File contents: " + total);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
 
         /* Get time from system */
         SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);

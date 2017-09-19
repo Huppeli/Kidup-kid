@@ -16,6 +16,13 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.concurrent.TimeUnit;
+
 
 /**
  * Created by t3math00 on 4/5/2017.
@@ -79,6 +86,28 @@ public class LockScreenService extends Service implements View.OnClickListener {
         ((LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE)).inflate(R.layout.lock_screen, linearLayout);
         View btnUnlock = linearLayout.findViewById(R.id.btn_close);
         btnUnlock.setOnClickListener(this);
+        /* Display time in lockscreen */
+        try {
+            String filename = "myfile";
+            FileInputStream inputStream = openFileInput(filename);
+            BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
+            StringBuilder total = new StringBuilder();
+            String line;
+            while ((line = r.readLine()) != null) {
+                total.append(line);
+            }
+            r.close();
+            inputStream.close();
+            Log.d("FILE", "File contents: " + total);
+            TextView txtTextView = (TextView) linearLayout.findViewById(R.id.textViewTime);
+            long millisUntilFinished = Long.parseLong(String.valueOf(total));
+            String hms = String.format("%02d:%02d:%02d" , TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
+                    TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)-TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
+                    TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)) );
+            txtTextView.setText(hms);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 //        tv_steps.setText(String.valueOf(MainActivity.steps), TextView.BufferType.EDITABLE);
 //        btnEarnTime.setOnClickListener(this);
 /*

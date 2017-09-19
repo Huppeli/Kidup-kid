@@ -26,6 +26,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.util.concurrent.TimeUnit;
 
 import az.plainpie.PieView;
@@ -50,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     RelativeLayout btnFinish;
 
-    Button btnLock;
+    // Button btnLock;
     TextView tv_currentTasks;
 
 //    Button enable;
@@ -355,6 +359,35 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onDestroy() {
         super.onDestroy();
 
+        /* New method to save time to file*/
+
+        String filename = "myfile";
+        String teksti = Long.toString(millisUntilFinished);
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+            outputStream.write(teksti.getBytes());
+            outputStream.close();
+            Log.d("FILE","Saved to file");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            FileInputStream inputStream = openFileInput(filename);
+            BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
+            StringBuilder total = new StringBuilder();
+            String line;
+            while ((line = r.readLine()) != null) {
+                total.append(line);
+            }
+            r.close();
+            inputStream.close();
+            Log.d("FILE", "File contents: " + total);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 
@@ -389,12 +422,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             Log.d("last count SC",String.valueOf(lastCount));
             Log.d("timeLeft SC", String.valueOf(timeLeft));
             Log.d(" VEIKKO2 Steps SC", String.valueOf(steps));
-
-
-
         }
-
-
     }
 
     private void updateGUI(Intent intent) {
@@ -422,7 +450,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         .setContentTitle("My notification")
                         .setContentText("Hello World!");
 
-        int mNotificationId = 001;
+        int mfficationId = 001;
 
         NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 

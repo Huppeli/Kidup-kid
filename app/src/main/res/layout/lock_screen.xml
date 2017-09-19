@@ -40,23 +40,20 @@
             android:background="@drawable/layout_bg_white"
             android:gravity="center"
             >
-            <az.plainpie.PieView
-                android:id="@+id/pieView"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
-                android:layout_centerHorizontal="true"
-                plainpie:inner_pie_padding="20"
-                plainpie:inner_text_visibility="true"
-                plainpie:percentage="75"
-                plainpie:percentage_size="25"
-                plainpie:color="@color/kidupDarkBlue"
-                />
+            <TextView
+                android:gravity="center"
+                android:textSize="25sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/kidupDarkBlue"
+                android:textStyle="bold"
+                android:id="@+id/textViewTime" />
             <!-- layout_margin = hack to get it center -->
             <TextView
                 android:id="@+id/lockscreenTimer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Your current screentime"
+                android:text="Screentime left:"
                 android:layout_marginTop="10dp"
                 android:textSize="18dp"
                 android:textColor="@color/kidupDarkBlue"
@@ -64,7 +61,7 @@
                 android:gravity="center"
                 android:layout_marginBottom="20dp"
                 android:layout_centerInParent="true"
-                android:layout_above="@+id/pieView"/>
+                android:layout_above="@+id/textViewTime"/>
         </RelativeLayout>
     </LinearLayout>
     <LinearLayout
@@ -80,14 +77,6 @@
             android:background="@drawable/layout_bg_white"
             android:gravity="center"
             >
-            <!--
-                Old textview to show time
-            <TextView
-                android:textSize="25sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textViewTime" />
-                -->
             <Button
                 android:id="@+id/btn_close"
                 android:layout_width="match_parent"
