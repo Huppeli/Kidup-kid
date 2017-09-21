@@ -345,6 +345,33 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onPause() {
         super.onPause();
 
+        String filename = "myfile";
+        String teksti = Long.toString(millisUntilFinished);
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+            outputStream.write(teksti.getBytes());
+            outputStream.close();
+            Log.d("FILE","Saved to file");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            FileInputStream inputStream = openFileInput(filename);
+            BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
+            StringBuilder total = new StringBuilder();
+            String line;
+            while ((line = r.readLine()) != null) {
+                total.append(line);
+            }
+            r.close();
+            inputStream.close();
+            Log.d("FILE", "File contents: " + total);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         unregisterReceiver(br);
 
