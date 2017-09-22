@@ -1,6 +1,11 @@
-"# Kidup-kid" 
+"# Kidup-kid"
 
 DEMO FOR KID APPLICATION ON BALANCING SCREEN TIME WITH PHYSICAL ACTIVITIES
 
-![Screenshot](https://scontent.xx.fbcdn.net/v/t1.0-9/17424659_1271804679572810_4684593983902783456_n.jpg?oh=4b8ba4b5bc728bb96378ae817d1cb61e&oe=597511B9)
-"# Kidup-1.2"
+Please note
+
+If you try out this project please use it on emulator as this.
+
+![Screenshot](https://user-images.githubusercontent.com/13272853/30741197-8d2dde1e-9f9c-11e7-9f2c-f13729ebee31.PNG)
+
+![Screenshot](https://user-images.githubusercontent.com/13272853/30741233-acc6edf6-9f9c-11e7-9782-b14267ba2844.PNG)
