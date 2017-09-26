@@ -29,6 +29,7 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.util.concurrent.TimeUnit;
 
@@ -178,6 +179,45 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 timeGot = steps *  10000;
 //                timeLeft = timeLeft + timeGot;
 
+                /* Save steps to file */
+                String saveLocation = "stepcount";
+                int stepsInt = Math.round(steps);
+                String input =  Integer.toString(stepsInt);
+                FileOutputStream outputStream;
+                try {
+                    /* Get old file */
+                    FileInputStream fis = openFileInput(saveLocation);
+                    InputStreamReader isr = new InputStreamReader(fis);
+                    BufferedReader br = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        sb.append(line);
+                    }
+                    Log.d("MIKA","READ FROM FILE" + sb );
+
+                    /* Save to file */
+                    outputStream = openFileOutput(saveLocation, Context.MODE_PRIVATE);
+                    outputStream.write(input.getBytes());
+                    outputStream.close();
+                    Log.d("MIKA", "Saved steps to file");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    FileInputStream inputStream = openFileInput(saveLocation);
+                    BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
+                    StringBuilder total = new StringBuilder();
+                    String line;
+                    while ((line = r.readLine()) != null) {
+                        total.append(line);
+                    }
+                    r.close();
+                    inputStream.close();
+                    Log.d("MIKA", "Step file contains: " + total);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 Intent mIntent = new Intent(MainActivity.this, CountDownService.class);
                 mIntent.putExtra("timeGot", timeGot);
                 MainActivity.this.startService(mIntent);
@@ -345,6 +385,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onPause() {
         super.onPause();
 
+
+        /* Save to file */
         String filename = "myfile";
         String teksti = Long.toString(millisUntilFinished);
         FileOutputStream outputStream;
@@ -386,8 +428,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onDestroy() {
         super.onDestroy();
 
-        /* New method to save time to file*/
 
+        /* Save to file */
         String filename = "myfile";
         String teksti = Long.toString(millisUntilFinished);
         FileOutputStream outputStream;
