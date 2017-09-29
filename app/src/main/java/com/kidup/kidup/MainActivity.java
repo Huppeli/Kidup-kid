@@ -176,6 +176,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 //                Log.d("Timeleft BC", String.valueOf(timeLeft));
                 Log.d("Steps BC", String.valueOf(steps));
 
+                TextView steptotalText = (TextView) findViewById(R.id.stepTotal);
+
+
                 timeGot = steps *  10000;
 //                timeLeft = timeLeft + timeGot;
 
@@ -218,6 +221,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+                steptotalText.setText("Day's total " + input);
                 Intent mIntent = new Intent(MainActivity.this, CountDownService.class);
                 mIntent.putExtra("timeGot", timeGot);
                 MainActivity.this.startService(mIntent);

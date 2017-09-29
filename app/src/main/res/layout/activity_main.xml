@@ -225,7 +225,7 @@
                 android:id="@+id/stepTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Day's total XXXX"
+                android:text=""
                 android:textSize="16dp"
                 android:textStyle="bold"
                 android:textColor="@color/kidupDarkBlue"
