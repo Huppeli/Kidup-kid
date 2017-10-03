@@ -31,6 +31,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import az.plainpie.PieView;
@@ -198,7 +199,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         sb.append(line);
                     }
                     Log.d("MIKA","READ FROM FILE" + sb );
+                    String oldSteps = sb.toString();
+                    Log.d("MIKA", "oldSteps = " + oldSteps);
 
+                    int newSteps = stepsInt + Integer.valueOf(oldSteps);
+                    input = String.valueOf(newSteps);
+                    Log.d("MIKA", "New value = " + input);
                     /* Save to file */
                     outputStream = openFileOutput(saveLocation, Context.MODE_PRIVATE);
                     outputStream.write(input.getBytes());
@@ -207,6 +213,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                /*
                 try {
                     FileInputStream inputStream = openFileInput(saveLocation);
                     BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
@@ -222,6 +229,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     e.printStackTrace();
                 }
 
+                */
                 steptotalText.setText("Day's total " + input);
                 Intent mIntent = new Intent(MainActivity.this, CountDownService.class);
                 mIntent.putExtra("timeGot", timeGot);
