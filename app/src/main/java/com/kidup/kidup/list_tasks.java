@@ -1,6 +1,7 @@
 package com.kidup.kidup;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,9 +13,13 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.kidup.kidup.models.Task;
+import com.kidup.kidup.models.Time;
 
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -27,6 +32,7 @@ public class list_tasks extends AppCompatActivity {
     private EditText etId;
     private Button btnSubmit;
     public static final String PREFS_NAME = "MyPrefsFile";
+    private Button btn_getTime;
 
 
 
@@ -77,6 +83,20 @@ public class list_tasks extends AppCompatActivity {
             mainApi = API.get().create(KidupAPI.class);
             init(kid_id);
         }
+
+        btn_getTime = (Button)findViewById(R.id.btn_getTime);
+        btn_getTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("MIKA", "GET TIME CLICK");
+                if (kid_id != null) {
+                    getTime(kid_id);
+                }
+            }
+        }
+
+        );
+
     }
 
     private void  init(String kid_id){
@@ -86,6 +106,28 @@ public class list_tasks extends AppCompatActivity {
         getTask(kid_id);
     }
 
+    private void getTime(String kid_id) {
+        Log.d("MIKA" , "getTime");
+
+        mainApi.getTime(kid_id)
+                .enqueue(new Callback<Time>() {
+                    @Override
+                    public void onResponse(Call<Time> call, Response<Time> response) {
+                        Log.d("RegisterTask", response.toString());
+                        response.body();
+                        float timeGotFromTask = (float) response.body().time * 60000 ;
+                        Log.d("MIKA" ,"time got in seconds " + timeGotFromTask);
+
+                        Intent mIntent = new Intent(list_tasks.this, CountDownService.class);
+                        mIntent.putExtra("timeGot", timeGotFromTask);
+                        list_tasks.this.startService(mIntent);
+                    }
+
+                    @Override
+                    public void onFailure(Call<Time> call, Throwable t) {
+                    }
+                });
+    }
 
     private void getTask(String kid_id) {
 

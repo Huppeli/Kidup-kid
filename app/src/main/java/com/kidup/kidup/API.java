@@ -11,7 +11,7 @@ import rx.schedulers.Schedulers;
  */
 
 public class API {
-    public static final String BASE_URL = "https://calm-castle-40631.herokuapp.com/api/";
+    public static final String BASE_URL = "https://kidup-server.herokuapp.com/api/";
 
     static CustomInterceptor interceptor = new CustomInterceptor();
 

@@ -114,8 +114,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // Remove default title text
         //getSupportActionBar().setDisplayShowTitleEnabled(false);
         //getSupportActionBar().setLogo(R.drawable.kidup_logo);
+        FileOutputStream outputStream;
+        try {
+            String saveLocation = "stepcount";
+            String value = "0";
+            outputStream = openFileOutput(saveLocation, Context.MODE_PRIVATE);
+            outputStream.write(value.getBytes());
+            outputStream.close();
+        }
+        catch (Exception e) {
 
-
+        }
 
 
 
