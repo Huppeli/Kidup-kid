@@ -37,9 +37,8 @@
         <ImageView
             android:id="@+id/kidupLogo"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
             android:layout_width="70dp"
-            android:layout_height="50dp"
+            android:layout_height="70dp"
             android:src="@drawable/kidup_logo_icon"/>
         <TextView
             android:id="@+id/userName"
@@ -129,6 +128,7 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:background="@drawable/layout_bg_white"
+            android:id="@+id/gridNumberTwo"
             >
             <TextView
                 android:id="@+id/yourTasks"

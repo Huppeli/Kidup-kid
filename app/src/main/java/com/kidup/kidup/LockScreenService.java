@@ -101,9 +101,11 @@ public class LockScreenService extends Service implements View.OnClickListener {
             Log.d("FILE", "File contents: " + total);
             TextView txtTextView = (TextView) linearLayout.findViewById(R.id.textViewTime);
             long millisUntilFinished = Long.parseLong(String.valueOf(total));
+            /* Format time to HH:MM:SS */
             String hms = String.format("%02d:%02d:%02d" , TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
                     TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)-TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
                     TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)) );
+            /* Display value in textview */
             txtTextView.setText(hms);
         } catch (Exception e) {
             e.printStackTrace();

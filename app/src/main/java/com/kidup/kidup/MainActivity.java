@@ -22,6 +22,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,8 +58,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     RelativeLayout btnFinish;
 
     // Button btnLock;
-    TextView tv_currentTasks;
-
+    RelativeLayout viewGridNumberTwo;
+    ImageView pandaImage;
 //    Button enable;
 
     public static DevicePolicyManager deviceManager;
@@ -182,6 +183,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             @Override
             public void onClick(View v){
 
+                int newSteps = 0;
                 Log.d("last count BC",String.valueOf(lastCount));
 //                Log.d("Timeleft BC", String.valueOf(timeLeft));
                 Log.d("Steps BC", String.valueOf(steps));
@@ -211,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     String oldSteps = sb.toString();
                     Log.d("MIKA", "oldSteps = " + oldSteps);
 
-                    int newSteps = stepsInt + Integer.valueOf(oldSteps);
+                    newSteps = stepsInt + Integer.valueOf(oldSteps);
                     input = String.valueOf(newSteps);
                     Log.d("MIKA", "New value = " + input);
                     /* Save to file */
@@ -222,24 +224,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                /*
-                try {
-                    FileInputStream inputStream = openFileInput(saveLocation);
-                    BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
-                    StringBuilder total = new StringBuilder();
-                    String line;
-                    while ((line = r.readLine()) != null) {
-                        total.append(line);
-                    }
-                    r.close();
-                    inputStream.close();
-                    Log.d("MIKA", "Step file contains: " + total);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                steptotalText.setText("Total today " + input);
 
-                */
-                steptotalText.setText("Day's total " + input);
+
                 Intent mIntent = new Intent(MainActivity.this, CountDownService.class);
                 mIntent.putExtra("timeGot", timeGot);
                 MainActivity.this.startService(mIntent);
@@ -271,6 +258,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 pieView2.setInnerText("0");
                 steps = 0;
 
+                /* Change image based on steps */
+                pandaImage = (ImageView)findViewById(R.id.pandaImage);
+                if (newSteps > 30) {
+                    pandaImage.setImageResource(R.drawable.panda_guy_sport_activity_gray);
+                }
+                if (newSteps > 100) {
+                    pandaImage.setImageResource(R.drawable.panda_guy_sport_achivement_gray);
+                }
+
             }
         });
 
@@ -284,16 +280,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         startActivityForResult(intent, RESULT_ENABLE);
 
 
-        tv_currentTasks = (TextView)findViewById(R.id.currentTasks);
-        tv_currentTasks.setOnClickListener( new View.OnClickListener(){
+        viewGridNumberTwo = (RelativeLayout) findViewById(R.id.gridNumberTwo);
+        viewGridNumberTwo.setOnClickListener( new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 Intent i = new Intent(MainActivity.this,list_tasks.class);
                 startActivity(i);
             }
         });
-
-
 
 
     }
