@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     // Button btnLock;
     RelativeLayout viewGridNumberTwo;
     ImageView pandaImage;
+    TextView userName;
 //    Button enable;
 
     public static DevicePolicyManager deviceManager;
@@ -115,6 +116,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // Remove default title text
         //getSupportActionBar().setDisplayShowTitleEnabled(false);
         //getSupportActionBar().setLogo(R.drawable.kidup_logo);
+
+        /*
         FileOutputStream outputStream;
         try {
             String saveLocation = "stepcount";
@@ -126,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         catch (Exception e) {
 
         }
+        */
 
 
 
@@ -226,11 +230,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 }
                 steptotalText.setText("Total today " + input);
 
+                if (timeGot != 0 ){
+                    Intent mIntent = new Intent(MainActivity.this, CountDownService.class);
+                    mIntent.putExtra("timeGot", timeGot);
+                    MainActivity.this.startService(mIntent);
+                    Log.d("VEIKKO2", "Sending more time");
+                }
 
-                Intent mIntent = new Intent(MainActivity.this, CountDownService.class);
-                mIntent.putExtra("timeGot", timeGot);
-                MainActivity.this.startService(mIntent);
-                Log.d("VEIKKO2", "Sending more time");
 //                if(!timer_was_touched){
 //                    timer.cancel();
 //                    timer = new CounterClass((long)timeLeft,1000 );
@@ -286,6 +292,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             public void onClick(View v){
                 Intent i = new Intent(MainActivity.this,list_tasks.class);
                 startActivity(i);
+            }
+        });
+
+
+        userName = (TextView) findViewById(R.id.userName);
+        userName.setOnClickListener( new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DeveloperMode.class);
+                startActivity(intent);
             }
         });
 
@@ -346,6 +362,22 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onResume() {
         super.onResume();
+        String filename = "myfile";
+        String line = null;
+        try {
+            FileInputStream inputStream = openFileInput(filename);
+            BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
+            Log.d("onresume in main", "onCreate: myfile " + r.readLine());
+            if (r.readLine() != null) {
+                line = r.readLine();
+                Log.d("onresume in main", "onCreate: line in myfile " + line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (line != null && !line.isEmpty() && timeLeft != 0) {
+            timeLeft = Long.parseLong(line);
+        }
         Intent intent = getIntent();
         /* timeLeft = intent.getFloatExtra("timeLeft", 0); */
        /* tv_steps.setText(String.valueOf(steps)); */
@@ -358,25 +390,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         registerReceiver(br, new IntentFilter(CountDownService.BROADCAST_ACTION));
         Log.d("COUNTDOWNSERVICE", "Registered broadcast receiver");
-
-
-//        String hms = String.format("%02d:%02d:%02d" , TimeUnit.MILLISECONDS.toHours(millis),TimeUnit.MILLISECONDS.toMinutes(millis)-TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)) );
-
-        /* textViewTime.setText(hms); */
-
-        /* Set PieView time */
-
-//
-//        pieView.setInnerText(hms);
-//
-//        Log.d("millis after unlock",String.valueOf(millis));
-//        Log.d("hms",hms);
-
-//        timer = new CounterClass((long)timePause,1000 );
-//        timer.start();
-//        timer_was_touched = true;
-//        timeGot= 0;
-//        timePause = 0;
         running = true;
 
         Log.d("last count OR",String.valueOf(lastCount));
@@ -392,7 +405,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             Toast.makeText(this, "Sensor not found", Toast.LENGTH_SHORT).show();
         }
 
-//        Log.d("VEIKKO2", "onResume: with time noti: " + intent.getBooleanExtra("timenoti" , false));
 
 
     }
@@ -411,7 +423,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
             outputStream.write(teksti.getBytes());
             outputStream.close();
-            Log.d("FILE","Saved to file");
+            Log.d("FILE","Saved to myfile on Pause" + teksti);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -454,7 +466,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
             outputStream.write(teksti.getBytes());
             outputStream.close();
-            Log.d("FILE","Saved to file");
+            Log.d("FILE","Saved to myfile in onDestroy" + teksti);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -74,8 +74,6 @@ public class LockScreenService extends Service implements View.OnClickListener {
         Log.d("steps LS",String.valueOf(MainActivity.steps));
         Log.d("VEIKKO2", "Current time " + String.valueOf(MainActivity.timeLeft));
 
-
-
     }
 
 

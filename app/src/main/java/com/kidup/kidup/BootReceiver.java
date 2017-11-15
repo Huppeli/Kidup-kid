@@ -3,6 +3,7 @@ package com.kidup.kidup;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 /**
@@ -23,8 +24,17 @@ public class BootReceiver extends BroadcastReceiver {
 
         }
         Log.d("VEIKKO2", "onReceive");
+
+        SharedPreferences getPrefs = context.getSharedPreferences("com.kidup.kidup", Context.MODE_PRIVATE);
+        boolean switchState = getPrefs.getBoolean("switch_toggle_lockscreen", false);
+
         context.startService(new Intent(context, CountDownService.class));
         context.startService(new Intent(context, LockScreenService.class));
+
+        if(switchState) {
+            context.stopService(new Intent(context, LockScreenService.class));
+        }
+        Log.d("switch", "onReceive: stop the locikscreen");
 
     }
 }
