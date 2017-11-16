@@ -97,7 +97,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        startService(new Intent(this, LockScreenService.class));
+
+        SharedPreferences getPrefs = getSharedPreferences("com.kidup.kidup", MODE_PRIVATE);
+        boolean switchState = getPrefs.getBoolean("switch_toggle_lockscreen", false);
+
+
+        if(switchState) {
+            stopService(new Intent(this, LockScreenService.class));
+            Log.d("switch", "onCreate: stop the locikscreen");
+        }
+        else {
+            startService(new Intent(this, LockScreenService.class));
+            Log.d("switch", "onCreate: start lockscreen");
+        }
+
         setContentView(R.layout.activity_main);
 
         startService(new Intent(this, CountDownService.class));
@@ -216,10 +229,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     Log.d("MIKA","READ FROM FILE" + sb );
                     String oldSteps = sb.toString();
                     Log.d("MIKA", "oldSteps = " + oldSteps);
-
                     newSteps = stepsInt + Integer.valueOf(oldSteps);
                     input = String.valueOf(newSteps);
                     Log.d("MIKA", "New value = " + input);
+                    br.close();
+                    fis.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                
+                try {
                     /* Save to file */
                     outputStream = openFileOutput(saveLocation, Context.MODE_PRIVATE);
                     outputStream.write(input.getBytes());
@@ -378,14 +397,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if (line != null && !line.isEmpty() && timeLeft != 0) {
             timeLeft = Long.parseLong(line);
         }
-        Intent intent = getIntent();
         /* timeLeft = intent.getFloatExtra("timeLeft", 0); */
        /* tv_steps.setText(String.valueOf(steps)); */
         pieView2.setInnerText(String.valueOf(steps));
+        /*
         Intent mIntent = new Intent(MainActivity.this, LockScreenService.class);
         mIntent.putExtra("steps", steps);
         MainActivity.this.startService(mIntent);
         Log.d("VEIKKO", "sending steps " + steps);
+        */
 //        long millis = (long) timeLeft;
 
         registerReceiver(br, new IntentFilter(CountDownService.BROADCAST_ACTION));

@@ -35,12 +35,12 @@ public class LockScreenService extends Service implements View.OnClickListener {
     private LinearLayout linearLayout;
     private WindowManager.LayoutParams layoutParams;
     private WindowManager windowManager;
-    static float timeGot = 0;
     static float steps = 0;
 
     public int onStartCommand (Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
 //
+        /*
         if (intent != null) {
             Log.d("VEIKKO", "Recieving some steps" );
             steps = intent.getFloatExtra("steps", 0);
@@ -48,7 +48,9 @@ public class LockScreenService extends Service implements View.OnClickListener {
             Log.d("VEIKKO2", "Steps in LC onchange " + steps);
 
         }
+        */
         return START_STICKY;
+
 
     }
     @Override
@@ -71,9 +73,6 @@ public class LockScreenService extends Service implements View.OnClickListener {
                         | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION,// hiding the home screen button
                 PixelFormat.TRANSLUCENT);
-        Log.d("steps LS",String.valueOf(MainActivity.steps));
-        Log.d("VEIKKO2", "Current time " + String.valueOf(MainActivity.timeLeft));
-
     }
 
 
