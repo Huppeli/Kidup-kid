@@ -232,12 +232,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     newSteps = stepsInt + Integer.valueOf(oldSteps);
                     input = String.valueOf(newSteps);
                     Log.d("MIKA", "New value = " + input);
+                    isr.close();
                     br.close();
                     fis.close();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                
+
                 try {
                     /* Save to file */
                     outputStream = openFileOutput(saveLocation, Context.MODE_PRIVATE);
@@ -437,6 +438,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         /* Save to file */
         String filename = "myfile";
         String teksti = Long.toString(millisUntilFinished);
+        Log.d("time", "onPause: teksti" + teksti);
         FileOutputStream outputStream;
 
         try {
@@ -506,6 +508,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             e.printStackTrace();
         }
 
+
         SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -545,6 +548,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private void updateGUI(Intent intent) {
         if (intent.getExtras() != null) {
             millisUntilFinished = intent.getLongExtra("countdown", 0);
+            Log.d("Coundown", "updateGUI: " + millisUntilFinished);
             Log.d("COUNTDOWNSERVICE" , "countdown seconds remaining: " + millisUntilFinished / 1000);
             String hms = String.format("%02d:%02d:%02d" , TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
                     TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)-TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),

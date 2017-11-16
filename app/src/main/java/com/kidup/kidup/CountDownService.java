@@ -89,26 +89,47 @@ public class CountDownService extends Service {
 //            editor.putLong("Time",20000);
 //        }
 
-//        timeLeft = sharedPref.getLong("Time",0);
+//
 
         String filename = "myfile";
-        String line = null;
+
         try {
             FileInputStream inputStream = openFileInput(filename);
             BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
             Log.d(TAG, "onCreate: myfile " + r.readLine());
-            if (r.readLine() != null) {
-                line = r.readLine();
-                Log.d(TAG, "onCreate: line in myfile " + line);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = r.readLine()) != null) {
+                sb.append(line);
             }
+            Log.d(TAG, "onCreate: sb " + sb);
+            timeLeft = Long.parseLong(sb.toString());
+            Log.d(TAG, "onCreate: sb " + sb);
+            Log.d(TAG, "onCreate: timeleft " + timeLeft);
+
+            /*
+            if (r.readLine() != null) {
+                timeLeft =
+            } else {
+                timeLeft = 100000;
+                Log.d(TAG, "onCreate: not read the file");
+            }
+            */
+            Log.d(TAG, "onCreate: time left after readfile" + timeLeft);
+//            line = r.readLine();
+//            if (line != null ) {
+//                timeLeft = Long.parseLong(line);
+//            } else {
+//                Log.d(TAG, "onCreate: not getting the file");
+//                timeLeft = 200000;
+//            }
+
+            r.close();
+            inputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (line != null && !line.isEmpty()) {
-            timeLeft = Long.parseLong(line);
-        } else {
-            timeLeft = 200000;
-        }
+
 
         Log.d("VEIKKO2", " onStartcommand in oncreate" + timeLeft);
 
@@ -288,10 +309,10 @@ public class CountDownService extends Service {
                 System.out.println(hms);
                /* MainActivity.textViewTime.setText(hms); */
                /* MainActivity.pieView.setInnerText(hms); */
-                timeLeft = millisUntilFinished;
-                Intent mIntent = new Intent(CountDownService.this, MainActivity.class);
-                mIntent.putExtra("timeLeft", millisUntilFinished);
-                CountDownService.this.startService(mIntent);
+//                timeLeft = millisUntilFinished;
+//                Intent mIntent = new Intent(CountDownService.this, MainActivity.class);
+//                mIntent.putExtra("timeLeft", millisUntilFinished);
+//                CountDownService.this.startService(mIntent);
                 Log.d("VEIKKO2", "Time left ontick in service" + timeLeft);
 
 //                if (timeLeft <= 100000){
