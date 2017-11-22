@@ -96,11 +96,9 @@ public class CountDownService extends Service {
         try {
             FileInputStream inputStream = openFileInput(filename);
             BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
-            Log.d(TAG, "onCreate: myfile " + r.readLine());
-            if (r.readLine() != null) {
-                line = r.readLine();
-                Log.d(TAG, "onCreate: line in myfile " + line);
-            }
+            line = r.readLine();
+            Log.d(TAG, "onCreate: line in myfile " + line);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

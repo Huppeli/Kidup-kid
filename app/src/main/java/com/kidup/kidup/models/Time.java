@@ -7,5 +7,6 @@ package com.kidup.kidup.models;
 public class Time {
 
     public int time;
+    public String message;
 
 }

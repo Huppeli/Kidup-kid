@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.kidup.kidup.models.Task;
 import com.kidup.kidup.models.Time;
@@ -42,6 +43,7 @@ public class list_tasks extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_tasks);
         etId = (EditText)findViewById(R.id.et_id);
+        btn_getTime = (Button)findViewById(R.id.btn_getTime);
 
         /* Get time from system */
         SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
@@ -73,18 +75,16 @@ public class list_tasks extends AppCompatActivity {
         });
         if( sharedPref.getString("kid_id",null) != ""){
             kid_id = sharedPref.getString("kid_id",null);
-
             Log.e("maitung", "check sharedpref" + kid_id);
-//
         }
         if (kid_id != null){
             btnSubmit.setVisibility(View.INVISIBLE);
             etId.setVisibility(View.INVISIBLE);
+            btn_getTime.setVisibility(View.VISIBLE);
             mainApi = API.get().create(KidupAPI.class);
             init(kid_id);
         }
 
-        btn_getTime = (Button)findViewById(R.id.btn_getTime);
         btn_getTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,9 +93,7 @@ public class list_tasks extends AppCompatActivity {
                     getTime(kid_id);
                 }
             }
-        }
-
-        );
+        });
 
     }
 
@@ -115,12 +113,19 @@ public class list_tasks extends AppCompatActivity {
                     public void onResponse(Call<Time> call, Response<Time> response) {
                         Log.d("RegisterTask", response.toString());
                         response.body();
-                        float timeGotFromTask = (float) response.body().time * 60000 ;
-                        Log.d("MIKA" ,"time got in seconds " + timeGotFromTask);
-
-                        Intent mIntent = new Intent(list_tasks.this, CountDownService.class);
-                        mIntent.putExtra("timeGot", timeGotFromTask);
-                        list_tasks.this.startService(mIntent);
+                        if (response.body()!= null){
+                            float timeGotFromTask = (float) response.body().time * 60000 ;
+                            Log.d("MIKA" ,"time got in seconds " + timeGotFromTask);
+                            Intent mIntent = new Intent(list_tasks.this, CountDownService.class);
+                            mIntent.putExtra("timeGot", timeGotFromTask);
+                            list_tasks.this.startService(mIntent);
+                            Toast.makeText(list_tasks.this, "Recieving time :" + timeGotFromTask,
+                                    Toast.LENGTH_LONG).show();
+                            if (response.body().message != null) {
+                                Toast.makeText(list_tasks.this, "Message from sever:" + response.body().message,
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        }
                     }
 
                     @Override
@@ -149,8 +154,6 @@ public class list_tasks extends AppCompatActivity {
                     public void onNext(List<Task> tasks) {
                         rv.setAdapter(new Adapter(tasks));
                         rv.getAdapter().notifyDataSetChanged();
-
-
                     }
                 });
     }
