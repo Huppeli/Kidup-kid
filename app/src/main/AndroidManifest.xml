@@ -30,7 +30,7 @@
             android:name=".list_tasks"
             android:label="@string/app_name"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
 
         <service android:name=".LockScreenService" />
 
@@ -59,8 +59,13 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".DeveloperMode"
-            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".DeveloperMode"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".kid_setting"
+            android:label="@string/title_activity_kid_setting"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
