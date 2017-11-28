@@ -98,9 +98,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences getPrefs = getSharedPreferences("com.kidup.kidup", MODE_PRIVATE);
+        SharedPreferences getPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean switchState = getPrefs.getBoolean("switch_toggle_lockscreen", false);
-
+        String kid_name = getPrefs.getString("kid_name", null );
 
         if(switchState) {
             stopService(new Intent(this, LockScreenService.class));
@@ -507,11 +507,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
 
         SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putLong("Time",millisUntilFinished);
-
-
         editor.commit();
 
         /*Get data */

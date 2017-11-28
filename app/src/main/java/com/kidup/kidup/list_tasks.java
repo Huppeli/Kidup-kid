@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.kidup.kidup.models.Kid;
 import com.kidup.kidup.models.Task;
 import com.kidup.kidup.models.Time;
 
@@ -24,6 +25,8 @@ import retrofit2.Response;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+
+import static com.kidup.kidup.CountDownService.PREFS_NAME;
 
 public class list_tasks extends AppCompatActivity {
 
@@ -56,21 +59,22 @@ public class list_tasks extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("maitung", "Clicked");
                 String keyword = etId.getText().toString();
-                Log.e("maitung", "key word : " + keyword);
-                SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 
-                SharedPreferences.Editor editor = sharedPref.edit();
-                Log.d("maitung", " id saved");
-                editor.putString("kid_id",keyword);
-                editor.commit();
-
-
-
-                kid_id = sharedPref.getString("kid_id","ditme");
-                Log.e("maitung", "kid_id" + kid_id );
-                init(kid_id);
+                if (etId.getText().toString().length() < 12) {
+                    Toast.makeText(list_tasks.this, "Wrong kid id",
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    Log.d("maitung", " id saved");
+                    editor.putString("kid_id",keyword);
+                    editor.commit();
+                    getKidDetail(kid_id);
+                    kid_id = sharedPref.getString("kid_id","ditme");
+                    Log.e("maitung", "kid_id" + kid_id );
+                    init(kid_id);
+                }
             }
         });
         if( sharedPref.getString("kid_id",null) != ""){
@@ -102,6 +106,29 @@ public class list_tasks extends AppCompatActivity {
         rv.setLayoutManager(new LinearLayoutManager(this));
         Log.d("maitung", "init: " + kid_id);
         getTask(kid_id);
+    }
+
+    private void getKidDetail(String kid_id) {
+        mainApi.getKidDetail(kid_id)
+                .enqueue(new Callback<Kid>() {
+                    @Override
+                    public void onResponse(Call<Kid> call, Response<Kid> response) {
+                        response.body();
+                        if (response.body()!= null) {
+                            String kid_name = (String) response.body().kid_name;
+                            Log.d("kid_name", "onResponse: " + kid_name);
+                            SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putString("kid_name",kid_name);
+                            editor.commit();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Kid> call, Throwable t) {
+
+                    }
+                });
     }
 
     private void getTime(String kid_id) {

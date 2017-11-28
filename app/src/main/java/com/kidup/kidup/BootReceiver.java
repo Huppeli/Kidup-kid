@@ -14,6 +14,7 @@ import android.util.Log;
 public class BootReceiver extends BroadcastReceiver {
     public BootReceiver() {
     }
+    public static final String PREFS_NAME = "MyPrefsFile";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -25,7 +26,7 @@ public class BootReceiver extends BroadcastReceiver {
         }
         Log.d("VEIKKO2", "onReceive");
 
-        SharedPreferences getPrefs = context.getSharedPreferences("com.kidup.kidup", Context.MODE_PRIVATE);
+        SharedPreferences getPrefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         boolean switchState = getPrefs.getBoolean("switch_toggle_lockscreen", false);
 
         context.startService(new Intent(context, CountDownService.class));

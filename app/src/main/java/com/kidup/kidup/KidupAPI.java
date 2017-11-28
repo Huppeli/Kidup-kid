@@ -1,5 +1,6 @@
 package com.kidup.kidup;
 
+import com.kidup.kidup.models.Kid;
 import com.kidup.kidup.models.Task;
 import com.kidup.kidup.models.Time;
 
@@ -16,6 +17,9 @@ import retrofit2.http.Path;
  */
 
 public interface KidupAPI {
+    @GET("kids/{kid_id}")
+    Call<Kid> getKidDetail(@Path("kid_id") String kid_id);
+
     @GET("kids/tasks/{kid_id}")
     rx.Observable<List<Task>> getTasks(@Path("kid_id") String kid_id);
 
