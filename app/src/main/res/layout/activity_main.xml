@@ -50,7 +50,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@color/kidupDarkBlue"
-            android:text="Pekka"
+            android:text="test"
             />
         <TextView
             android:layout_width="wrap_content"

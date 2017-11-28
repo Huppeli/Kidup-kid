@@ -37,6 +37,7 @@ import java.util.concurrent.TimeUnit;
 
 import az.plainpie.PieView;
 
+import static android.R.attr.logo;
 import static android.R.attr.value;
 import static com.kidup.kidup.CountDownService.PREFS_NAME;
 
@@ -60,7 +61,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     // Button btnLock;
     RelativeLayout viewGridNumberTwo;
     ImageView pandaImage;
-    TextView userName;
 //    Button enable;
 
     public static DevicePolicyManager deviceManager;
@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     /* TextView tv_steps; */
     public static PieView pieView;
     public static PieView pieView2;
+    private TextView userName;
 
     /*
     public static TextView textViewTime;
@@ -99,8 +100,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
 
         SharedPreferences getPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        boolean switchState = getPrefs.getBoolean("switch_toggle_lockscreen", false);
         String kid_name = getPrefs.getString("kid_name", null );
+        Log.d("kid_name", "onCreate: " + kid_name);
+        boolean switchState = getPrefs.getBoolean("switch_toggle_lockscreen", false);
 
         if(switchState) {
             stopService(new Intent(this, LockScreenService.class));
@@ -314,8 +316,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         });
 
-
         userName = (TextView) findViewById(R.id.userName);
+        if (kid_name != null) {
+            userName.setText(kid_name);
+        }
         userName.setOnClickListener( new View.OnClickListener(){
             @Override
             public void onClick(View v) {
