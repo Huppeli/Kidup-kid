@@ -169,30 +169,6 @@ public class LockScreenService extends Service implements View.OnClickListener {
                         Toast.LENGTH_LONG).show();
             }
         });
-        /*
-        btnEarnTime.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-
-                Log.d("working", "earn");
-                Log.d("steps LSbtn",String.valueOf(steps));
-                timeGot = MainActivity.steps *  10000;
-                Intent mIntent = new Intent(LockScreenService.this, CountDownService.class);
-                mIntent.putExtra("timeGot", timeGot);
-                LockScreenService.this.startService(mIntent);
-//                MainActivity.timeLeft = MainActivity.timeLeft + MainActivity.timeGot;
-
-
-                MainActivity.lastCount = MainActivity.lastCount + MainActivity.steps;
-                MainActivity.steps = 0;
-
-                Log.d("steps after LSbtn",String.valueOf(MainActivity.steps));
-                Log.d("timegot after LSbtn",String.valueOf(MainActivity.timeGot));
-                Log.d("timeleft after LSbtn",String.valueOf(MainActivity.timeLeft));
-                Log.d("lastcount after LSbtn",String.valueOf(MainActivity.lastCount));
-            }
-        });
-        */
     }
 
     @Override
