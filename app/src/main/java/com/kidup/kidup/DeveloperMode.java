@@ -47,10 +47,10 @@ public class DeveloperMode extends AppCompatActivity {
                 editor.commit();
                 Log.d("MIKA","Lockscreen toggle");
                 if (switchToggle.isChecked()) {
-                    Toast.makeText(DeveloperMode.this, "Disable the Lockscreen",
+                    Toast.makeText(DeveloperMode.this, getString(R.string.toast_disable),
                             Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(DeveloperMode.this, "Enable the Lockscreen",
+                    Toast.makeText(DeveloperMode.this, getString(R.string.toast_enable),
                             Toast.LENGTH_LONG).show();
                 }
             }
@@ -61,7 +61,7 @@ public class DeveloperMode extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (etId.getText().toString().length() < 12) {
-                    Toast.makeText(DeveloperMode.this, "Wrong kid id",
+                    Toast.makeText(DeveloperMode.this, getString(R.string.toast_wrong),
                             Toast.LENGTH_LONG).show();
                 } else {
                     Log.e("maitung", "Clicked");

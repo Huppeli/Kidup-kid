@@ -173,8 +173,8 @@ public class CountDownService extends Service {
                             NotificationCompat.Builder mBuilder =
                                     new NotificationCompat.Builder(context)
                                             .setSmallIcon(R.drawable.panda_proud_gray)
-                                            .setContentTitle("Hey you!")
-                                            .setContentText("You have less than 5 minutes left!");
+                                            .setContentTitle(getString(R.string.notification_hey))
+                                            .setContentText(getString(R.string.notification_you));
 
                             int mNotificationId = 001;
 
