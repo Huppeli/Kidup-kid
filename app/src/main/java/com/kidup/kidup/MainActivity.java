@@ -247,7 +247,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                steptotalText.setText("Total today " + input);
+                steptotalText.setText(getString(R.string.total_today) + input);
 
                 if (timeGot != 0 ){
                     Intent mIntent = new Intent(MainActivity.this, CountDownService.class);
