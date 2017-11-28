@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">"KIDUP "</string>
+    <string name="title_activity_kid_setting">Asetukset</string>
+    <string name="action_settings">Asetukset</string>
+    <string name="activity">Aktiviteetti</string>
+    <string name="your_screentime">Ruutuaikasi</string>
+    <string name="tasks_remaining">Tehtäviä jäljellä</string>
+    <string name="tap_this">Paina tästä</string>
+    <string name="last_update">Viimeksi päivitetty: Nyt</string>
+    <string name="helping_hands">Auttavia käsiä</string>
+    <string name="daily_total">Päivittäinen tavoite: 6600</string>
+    <string name="activity_level">Aktiivisuus taso</string>
+    <string name="convert_activity">Muunna askeleet ruutuajaksi</string>
+    <string name="total_today">"Askeleita tänään: "</string>
+</resources>
