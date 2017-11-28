@@ -18,7 +18,7 @@
         android:id="@+id/btn_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Submit"
+        android:text="@string/button_submit"
         android:visibility="visible" />
 
     <android.support.v7.widget.RecyclerView
@@ -30,7 +30,7 @@
         android:id="@+id/btn_getTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Get time"
+        android:text="@string/button_gettime"
         android:visibility="gone"
         />
 

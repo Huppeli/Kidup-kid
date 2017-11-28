@@ -11,14 +11,14 @@
         android:id="@+id/switchToggle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Switch to disable Lockscreen"
+        android:text="@string/switch_disable_lock"
         android:layout_marginBottom="100dp"/>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Change the Kid id" />
+        android:text="@string/change_kid_id" />
 
     <EditText
         android:id="@+id/et_id"
@@ -31,7 +31,7 @@
         android:id="@+id/btn_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Submit"
+        android:text="@string/button_submit"
         android:visibility="visible" />
 
 </LinearLayout>
