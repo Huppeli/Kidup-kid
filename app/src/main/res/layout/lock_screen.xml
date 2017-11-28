@@ -77,6 +77,13 @@
             android:gravity="center"
             >
             <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Get Time"
+                android:id="@+id/btn_getTimeFromLock"
+                />
+
+            <Button
                 android:id="@+id/btn_close"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"

@@ -13,13 +13,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.util.concurrent.TimeUnit;
 
@@ -35,7 +38,8 @@ public class LockScreenService extends Service implements View.OnClickListener {
     private LinearLayout linearLayout;
     private WindowManager.LayoutParams layoutParams;
     private WindowManager windowManager;
-    static float steps = 0;
+    private Button btn_getTimeFromLock;
+    private float timeGot;
 
     public int onStartCommand (Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
@@ -82,6 +86,7 @@ public class LockScreenService extends Service implements View.OnClickListener {
         windowManager.addView(linearLayout, layoutParams);
         ((LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE)).inflate(R.layout.lock_screen, linearLayout);
         View btnUnlock = linearLayout.findViewById(R.id.btn_close);
+        btn_getTimeFromLock = (Button) linearLayout.findViewById(R.id.btn_getTimeFromLock);
         btnUnlock.setOnClickListener(this);
         /* Display time in lockscreen */
         try {
@@ -109,30 +114,61 @@ public class LockScreenService extends Service implements View.OnClickListener {
         }
 //        tv_steps.setText(String.valueOf(MainActivity.steps), TextView.BufferType.EDITABLE);
 //        btnEarnTime.setOnClickListener(this);
-/*
-        btnEarnTime.setOnClickListener(new View.OnClickListener(){
+        btn_getTimeFromLock.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View view) {
+                int newSteps = 0;
+                /* Save steps to file */
+                String saveLocation = "stepcount";
+                int stepsInt = Math.round(MainActivity.steps);
+                String input =  Integer.toString(stepsInt);
+                FileOutputStream outputStream;
+                try {
+                    /* Get old file */
+                    FileInputStream fis = openFileInput(saveLocation);
+                    InputStreamReader isr = new InputStreamReader(fis);
+                    BufferedReader br = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        sb.append(line);
+                    }
+                    Log.d("MIKA","READ FROM FILE" + sb );
+                    String oldSteps = sb.toString();
+                    Log.d("MIKA", "oldSteps = " + oldSteps);
+                    newSteps = stepsInt + Integer.valueOf(oldSteps);
+                    input = String.valueOf(newSteps);
+                    Log.d("MIKA", "New value = " + input);
+                    br.close();
+                    fis.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-                Log.d("working", "earn");
-                Log.d("steps LSbtn",String.valueOf(steps));
-                timeGot = MainActivity.steps *  10000;
-                Intent mIntent = new Intent(LockScreenService.this, CountDownService.class);
-                mIntent.putExtra("timeGot", timeGot);
-                LockScreenService.this.startService(mIntent);
-//                MainActivity.timeLeft = MainActivity.timeLeft + MainActivity.timeGot;
+                try {
+                    /* Save to file */
+                    outputStream = openFileOutput(saveLocation, Context.MODE_PRIVATE);
+                    outputStream.write(input.getBytes());
+                    outputStream.close();
+                    Log.d("MIKA", "Saved steps to file");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-
+                timeGot = MainActivity.steps * 10000;
                 MainActivity.lastCount = MainActivity.lastCount + MainActivity.steps;
                 MainActivity.steps = 0;
 
-                Log.d("steps after LSbtn",String.valueOf(MainActivity.steps));
-                Log.d("timegot after LSbtn",String.valueOf(MainActivity.timeGot));
-                Log.d("timeleft after LSbtn",String.valueOf(MainActivity.timeLeft));
-                Log.d("lastcount after LSbtn",String.valueOf(MainActivity.lastCount));
+                if (timeGot != 0) {
+                    Intent mIntent = new Intent(LockScreenService.this, CountDownService.class);
+                    mIntent.putExtra("timeGot", timeGot);
+                    LockScreenService.this.startService(mIntent);
+                    Log.d("Lockscreenservice", "Sending more time");
+                }
+                Toast.makeText(LockScreenService.this, "Earn time : " + timeGot,
+                        Toast.LENGTH_LONG).show();
             }
         });
-        */
     }
 
     @Override
