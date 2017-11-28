@@ -87,7 +87,7 @@ public class DeveloperMode extends AppCompatActivity {
                     public void onResponse(Call<Kid> call, Response<Kid> response) {
                         response.body();
                         if (response.body()!= null) {
-                            String kid_name = (String) response.body().kid_name;
+                            String kid_name = (String) response.body().name;
                             Log.d("kid_name", "onResponse: " + kid_name);
                             SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPref.edit();

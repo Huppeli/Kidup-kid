@@ -5,6 +5,6 @@ package com.kidup.kidup.models;
  */
 
 public class Kid {
-    public String kid_name;
+    public String name;
     public String parent_id;
 }

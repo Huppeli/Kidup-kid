@@ -87,6 +87,8 @@ public class list_tasks extends AppCompatActivity {
             btn_getTime.setVisibility(View.VISIBLE);
             mainApi = API.get().create(KidupAPI.class);
             init(kid_id);
+            Log.d("getkiddetail", "onCreate: " + kid_id);
+            getKidDetail(kid_id);
         }
 
         btn_getTime.setOnClickListener(new View.OnClickListener() {
@@ -115,7 +117,7 @@ public class list_tasks extends AppCompatActivity {
                     public void onResponse(Call<Kid> call, Response<Kid> response) {
                         response.body();
                         if (response.body()!= null) {
-                            String kid_name = (String) response.body().kid_name;
+                            String kid_name = (String) response.body().name;
                             Log.d("kid_name", "onResponse: " + kid_name);
                             SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPref.edit();
