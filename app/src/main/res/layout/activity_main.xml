@@ -76,7 +76,7 @@
             android:layout_weight="1"
             android:background="@drawable/layout_bg_white"
             android:gravity="center"
-            android:id="@+id/btnFinish"
+
             >
             <TextView
                 android:layout_width="wrap_content"
@@ -195,6 +195,7 @@
             android:layout_weight="1"
             android:background="@drawable/layout_bg_white"
             android:gravity="center"
+            android:id="@+id/btnFinish"
             >
             <TextView
                 android:id="@+id/activityHeader"
