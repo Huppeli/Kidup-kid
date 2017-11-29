@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     ImageView pandaImage;
 //    Button enable;
 
-    public static DevicePolicyManager deviceManager;
     public static ComponentName compName;
     ActivityManager activityManager;
     static final int RESULT_ENABLE = 1;
@@ -120,7 +119,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         /*btnLock = (Button) findViewById(R.id.btnLock); */
 
-        deviceManager = (DevicePolicyManager)getSystemService(Context.DEVICE_POLICY_SERVICE);
         activityManager = (ActivityManager)getSystemService(
                 Context.ACTIVITY_SERVICE);
         compName = new ComponentName(this, MyAdmin.class);
