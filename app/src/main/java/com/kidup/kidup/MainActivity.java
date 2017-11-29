@@ -424,7 +424,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         }
         else{
-            Toast.makeText(this, "Sensor not found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.sensor_not_found), Toast.LENGTH_SHORT).show();
         }
 
 

@@ -52,7 +52,7 @@
                 android:id="@+id/lockscreenTimer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Screentime left:"
+                android:text="@string/screentime_left"
                 android:layout_marginTop="10dp"
                 android:textSize="18dp"
                 android:textColor="@color/kidupDarkBlue"
@@ -84,7 +84,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Get Time"
+                android:text="@string/button_gettime"
                 android:id="@+id/btn_getTimeFromLock"
                 android:layout_below="@+id/tv_StepInLock"/>
 
@@ -95,7 +95,7 @@
                 android:scaleType="fitCenter"
                 android:layout_centerInParent="true"
                 android:src="@drawable/ic_assignment"
-                android:text="Unlock"
+                android:text="@string/button_unlock"
                 />
         </RelativeLayout>
     </LinearLayout>

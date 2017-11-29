@@ -13,4 +13,19 @@
     <string name="activity_level">Aktiivisuus taso</string>
     <string name="convert_activity">Muunna askeleet ruutuajaksi</string>
     <string name="total_today">"Askeleita tänään: "</string>
+    <string name="sensor_not_found">Ei sensoria</string>
+    <string name="button_gettime">Hae aikaa</string>
+    <string name="button_submit">Lähetä</string>
+    <string name="button_unlock">Avaa</string>
+    <string name="change_kid_id">Vaihda lapsen tunnus</string>
+    <string name="description">Kuvaus ominaisuudesta</string>
+    <string name="input_password">Kirjoita tähän salasana</string>
+    <string name="notification_hey">Hei!</string>
+    <string name="notification_you">Sinulla on vähemmän kuin 5 minuuttia aikaa!</string>
+    <string name="register">Rekisteröi</string>
+    <string name="screentime_left">Ruutuaikaa jäljellä</string>
+    <string name="switch_disable_lock">Nappula jolla poistetaan lukitus</string>
+    <string name="toast_disable">Poista lukitus</string>
+    <string name="toast_enable">Ota käyttöön lukitus</string>
+    <string name="toast_wrong">Väärä tunnus</string>
 </resources>

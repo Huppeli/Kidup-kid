@@ -2,7 +2,9 @@
     <string name="action_settings">Settings</string>
     <string name="app_name">KIDUP </string>
     <string name="title_activity_kid_setting">kid_setting</string>
-    <!-- Mainactivity strings -->
+    <!-- MainActivity.java -->
+    <string name="sensor_not_found">Sensor not found</string>
+    <!-- activity_main.xml -->
     <string name="last_update">Last update: Now</string>
     <string name="your_screentime">Your screentime</string>
     <string name="tap_this">Tap this</string>
@@ -13,4 +15,26 @@
     <string name="daily_total">Daily target: 6600</string>
     <string name="total_today">Total today: </string>
     <string name="activity_level">Activity level</string>
+    <!-- content_kid_setting.xml -->
+    <string name="input_password">Input the password here!</string>
+    <string name="button_submit">Submit</string>
+    <string name="description">Description about feature</string>
+    <!-- list_task.xml -->
+    <string name="button_gettime">Get time</string>
+    <!-- Lock_screen.xml -->
+    <string name="button_unlock">Unlock</string>
+    <string name="screentime_left">Screentime left:</string>
+    <!-- Task.xml -->
+    <string name="register">Register</string>
+    <!-- activity_developer_mode.xml -->
+    <string name="switch_disable_lock">Switch to disable Lockscreen</string>
+    <string name="change_kid_id">Change the Kid id</string>
+    <!-- CountDownService.java -->
+    <string name="notification_hey">Hey you!</string>
+    <string name="notification_you">You have less than 5 minutes left!</string>
+    <!-- DeveloperMode.java -->
+    <string name="toast_disable">Disable the lockscreen</string>
+    <string name="toast_enable">Enable the lockscreen</string>
+    <string name="toast_wrong">Wrong id for kid</string>
+
 </resources>
