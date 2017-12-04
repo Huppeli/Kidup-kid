@@ -2,6 +2,7 @@ package com.kidup.kidup;
 
 import android.annotation.SuppressLint;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
@@ -170,11 +171,14 @@ public class CountDownService extends Service {
                         if ( timeLeft < 300000) {
                             Log.d("VEIKKO2","Time left is low");
 
+                            PendingIntent contentIntent = PendingIntent.getActivity(context,0,
+                                    new Intent(context, MainActivity.class),PendingIntent.FLAG_UPDATE_CURRENT);
                             NotificationCompat.Builder mBuilder =
                                     new NotificationCompat.Builder(context)
                                             .setSmallIcon(R.drawable.panda_proud_gray)
                                             .setContentTitle(getString(R.string.notification_hey))
-                                            .setContentText(getString(R.string.notification_you));
+                                            .setContentText(getString(R.string.notification_you))
+                                            .setContentIntent(contentIntent);
 
                             int mNotificationId = 001;
 
