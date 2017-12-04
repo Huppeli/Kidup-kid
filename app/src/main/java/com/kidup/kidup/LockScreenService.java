@@ -115,7 +115,7 @@ public class LockScreenService extends Service implements View.OnClickListener {
             e.printStackTrace();
         }
         tv_StepInLock = (TextView) linearLayout.findViewById(R.id.tv_StepInLock);
-        tv_StepInLock.setText(String.valueOf(MainActivity.steps) + " steps", TextView.BufferType.EDITABLE);
+        tv_StepInLock.setText(String.valueOf(MainActivity.steps) + " " + getString(R.string.steps), TextView.BufferType.EDITABLE);
         //        tv_steps.setText(String.valueOf(MainActivity.steps), TextView.BufferType.EDITABLE);
 //        btnEarnTime.setOnClickListener(this);
         btn_getTimeFromLock.setOnClickListener(new View.OnClickListener() {

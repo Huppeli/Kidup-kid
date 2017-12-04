@@ -5,6 +5,8 @@
     <!-- MainActivity.java -->
     <string name="sensor_not_found">Sensor not found</string>
     <string name="toast_successful_convert_step_to_time">You have received: </string>
+    <string name="steps">steps</string>
+    <string name="seconds">seconds</string>
     <!-- activity_main.xml -->
     <string name="last_update">Last update: Now</string>
     <string name="your_screentime">Your screentime</string>
