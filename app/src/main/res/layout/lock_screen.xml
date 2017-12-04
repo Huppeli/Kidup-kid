@@ -75,8 +75,11 @@
             android:layout_weight="1"
             android:background="@drawable/layout_bg_white"
             android:gravity="center">
-            <Button
-                android:text="sdsdsad"
+
+            <TextView
+                android:text="step"
+                android:gravity="center"
+                android:textColor="@color/colorPrimaryDark"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_StepInLock" />

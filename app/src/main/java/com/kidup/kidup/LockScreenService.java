@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,7 +41,7 @@ public class LockScreenService extends Service implements View.OnClickListener {
     private WindowManager windowManager;
     private Button btn_getTimeFromLock;
     private float timeGot;
-    private Button tv_StepInLock;
+    private TextView tv_StepInLock;
 
     public int onStartCommand (Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
@@ -113,8 +114,8 @@ public class LockScreenService extends Service implements View.OnClickListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        tv_StepInLock = (Button) linearLayout.findViewById(R.id.tv_StepInLock);
-        tv_StepInLock.setText(String.valueOf(MainActivity.steps), TextView.BufferType.EDITABLE);
+        tv_StepInLock = (TextView) linearLayout.findViewById(R.id.tv_StepInLock);
+        tv_StepInLock.setText(String.valueOf(MainActivity.steps) + " steps", TextView.BufferType.EDITABLE);
         //        tv_steps.setText(String.valueOf(MainActivity.steps), TextView.BufferType.EDITABLE);
 //        btnEarnTime.setOnClickListener(this);
         btn_getTimeFromLock.setOnClickListener(new View.OnClickListener() {
