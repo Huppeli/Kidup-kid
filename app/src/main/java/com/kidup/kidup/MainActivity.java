@@ -210,7 +210,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
                 timeGot = steps *  10000;
 //                timeLeft = timeLeft + timeGot;
-
+                Toast.makeText(MainActivity.this, getString(R.string.convert_step_to_time),
+                        Toast.LENGTH_LONG).show();
                 /* Save steps to file */
                 String saveLocation = "stepcount";
                 int stepsInt = Math.round(steps);

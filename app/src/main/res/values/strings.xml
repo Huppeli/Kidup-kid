@@ -4,6 +4,7 @@
     <string name="title_activity_kid_setting">kid_setting</string>
     <!-- MainActivity.java -->
     <string name="sensor_not_found">Sensor not found</string>
+    <string name="convert_step_to_time">Convert step to time</string>
     <!-- activity_main.xml -->
     <string name="last_update">Last update: Now</string>
     <string name="your_screentime">Your screentime</string>
