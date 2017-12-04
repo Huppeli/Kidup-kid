@@ -28,4 +28,5 @@
     <string name="toast_disable">Poista lukitus</string>
     <string name="toast_enable">Ota käyttöön lukitus</string>
     <string name="toast_wrong">Väärä tunnus</string>
+    <string name="toast_successful_convert_step_to_time">"Sinä olet saanut: "</string>
 </resources>
