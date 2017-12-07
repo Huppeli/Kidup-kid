@@ -106,7 +106,7 @@ public class CountDownService extends Service {
         if (line != null && !line.isEmpty()) {
             timeLeft = Long.parseLong(line);
         } else {
-            timeLeft = 200000;
+            timeLeft = 10000;
         }
 
         Log.d("VEIKKO2", " onStartcommand in oncreate" + timeLeft);
@@ -212,7 +212,7 @@ public class CountDownService extends Service {
                             Log.d("VEIKKO2", "Locking the screen!");
 
                             /* If user has no time left give 100 seconds */
-                            timeLeft = 200000;
+                            timeLeft = 10000;
 
                             deviceManager.lockNow();
                         }
@@ -317,7 +317,7 @@ public class CountDownService extends Service {
                 boolean active = deviceManager.isAdminActive(compName);
                 if (active) {
                     Log.d("VEIKKO2", "Locking the screen!");
-                    timeLeft = 200000;
+                    timeLeft = 10000;
 
                     deviceManager.lockNow();
                 }

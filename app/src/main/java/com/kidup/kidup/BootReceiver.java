@@ -29,12 +29,14 @@ public class BootReceiver extends BroadcastReceiver {
         SharedPreferences getPrefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         boolean switchState = getPrefs.getBoolean("switch_toggle_lockscreen", false);
 
-        context.startService(new Intent(context, CountDownService.class));
-        context.startService(new Intent(context, LockScreenService.class));
+
 
         if(switchState) {
             context.stopService(new Intent(context, LockScreenService.class));
+            context.stopService(new Intent(context, CountDownService.class));
+        } else {
             context.startService(new Intent(context, CountDownService.class));
+            context.startService(new Intent(context, LockScreenService.class));
         }
         Log.d("switch", "onReceive: stop the locikscreen");
 

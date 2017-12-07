@@ -101,20 +101,21 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         SharedPreferences getPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         String kid_name = getPrefs.getString("kid_name", null );
         Log.d("kid_name", "onCreate: " + kid_name);
-        boolean switchState = getPrefs.getBoolean("switch_toggle_lockscreen", false);
+        final boolean switchState = getPrefs.getBoolean("switch_toggle_lockscreen", false);
 
         if(switchState) {
+            stopService(new Intent(this, CountDownService.class));
             stopService(new Intent(this, LockScreenService.class));
             Log.d("switch", "onCreate: stop the locikscreen");
         }
         else {
+            startService(new Intent(this, CountDownService.class));
             startService(new Intent(this, LockScreenService.class));
             Log.d("switch", "onCreate: start lockscreen");
         }
 
         setContentView(R.layout.activity_main);
 
-        startService(new Intent(this, CountDownService.class));
         Log.i("CountDownService", "Started service");
 
         /*btnLock = (Button) findViewById(R.id.btnLock); */
@@ -251,10 +252,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 steptotalText.setText(getString(R.string.total_today) + input);
 
                 if (timeGot != 0 ){
-                    Intent mIntent = new Intent(MainActivity.this, CountDownService.class);
-                    mIntent.putExtra("timeGot", timeGot);
-                    MainActivity.this.startService(mIntent);
-                    Log.d("VEIKKO2", "Sending more time");
+                    if (!switchState) {
+                        Intent mIntent = new Intent(MainActivity.this, CountDownService.class);
+                        mIntent.putExtra("timeGot", timeGot);
+                        MainActivity.this.startService(mIntent);
+                        Log.d("VEIKKO2", "Sending more time");
+                    }
                 }
 
 //                if(!timer_was_touched){
