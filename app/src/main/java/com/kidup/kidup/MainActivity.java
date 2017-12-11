@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     static float lastCount = 0;
     static float timeLeft = 0;
     static float timeGot = 0;
-
+    boolean switchState;
     long millisUntilFinished = 0;
 
 //    float timePause = 0;
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         SharedPreferences getPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         String kid_name = getPrefs.getString("kid_name", null );
         Log.d("kid_name", "onCreate: " + kid_name);
-        final boolean switchState = getPrefs.getBoolean("switch_toggle_lockscreen", false);
+        switchState = getPrefs.getBoolean("switch_toggle_lockscreen", false);
 
         if(switchState) {
             stopService(new Intent(this, CountDownService.class));
@@ -209,9 +209,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 TextView steptotalText = (TextView) findViewById(R.id.stepTotal);
 
 
-                timeGot = steps *  10000;
+                timeGot = steps *  5000;
 //                timeLeft = timeLeft + timeGot;
-                Toast.makeText(MainActivity.this, getString(R.string.toast_successful_convert_step_to_time) + steps * 10 + " " + getString(R.string.seconds),
+                Toast.makeText(MainActivity.this, getString(R.string.toast_successful_convert_step_to_time) + steps * 5 + " " + getString(R.string.seconds),
                         Toast.LENGTH_LONG).show();
                 /* Save steps to file */
                 String saveLocation = "stepcount";
@@ -537,6 +537,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             /* tv_steps.setText(String.valueOf(steps)); */
             pieView2.setInnerText(String.valueOf(steps));
 
+            if (!switchState) {
+                Log.d("send step to lock", "onSensorChanged: ");
+                Intent mIntent = new Intent(MainActivity.this, LockScreenService.class);
+                mIntent.putExtra("stepsToLock", steps);
+                MainActivity.this.startService(mIntent);
+            }
 
             Log.d("event SC",String.valueOf(event.values[0]));
             Log.d("last count SC",String.valueOf(lastCount));

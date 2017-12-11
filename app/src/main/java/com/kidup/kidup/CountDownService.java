@@ -168,6 +168,10 @@ public class CountDownService extends Service {
                        /* MainActivity.pieView.setInnerText(hms); */
                         timeLeft = millisUntilFinished;
 
+                        Intent lockscreenIntent = new Intent(CountDownService.this, LockScreenService.class);
+                        lockscreenIntent.putExtra("timeToLock", millisUntilFinished);
+                        CountDownService.this.startService(lockscreenIntent);
+
                         if ( timeLeft < 300000) {
                             Log.d("VEIKKO2","Time left is low");
 
@@ -211,7 +215,7 @@ public class CountDownService extends Service {
                         if (active) {
                             Log.d("VEIKKO2", "Locking the screen!");
 
-                            /* If user has no time left give 100 seconds */
+                            /* If user has no time left give 10 seconds */
                             timeLeft = 10000;
 
                             deviceManager.lockNow();
@@ -294,6 +298,10 @@ public class CountDownService extends Service {
                 Intent mIntent = new Intent(CountDownService.this, MainActivity.class);
                 mIntent.putExtra("timeLeft", millisUntilFinished);
                 CountDownService.this.startService(mIntent);
+
+                Intent lockscreenIntent = new Intent(CountDownService.this, LockScreenService.class);
+                lockscreenIntent.putExtra("timeToLock", millisUntilFinished);
+                CountDownService.this.startService(lockscreenIntent);
                 Log.d("VEIKKO2", "Time left ontick in service" + timeLeft);
 
 //                if (timeLeft <= 100000){

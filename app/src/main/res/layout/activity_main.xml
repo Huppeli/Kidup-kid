@@ -102,25 +102,25 @@
                 android:layout_marginBottom="10dp"
                 />
             <!-- layout_margin = hack to get it center -->
-            <TextView
-                android:id="@+id/tapThisText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tap_this"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                android:textColor="@color/kidupDarkBlue"
-                android:layout_below="@+id/pieView"
-                android:layout_centerHorizontal="true" />
-            <TextView
-                android:id="@+id/textSmaller"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="@string/convert_activity"
-                android:textColor="@color/kidupDarkBlue"
-                android:layout_below="@+id/tapThisText"
-                android:layout_centerHorizontal="true"/>
+            <!--<TextView-->
+                <!--android:id="@+id/tapThisText"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/tap_this"-->
+                <!--android:textSize="16dp"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textColor="@color/kidupDarkBlue"-->
+                <!--android:layout_below="@+id/pieView"-->
+                <!--android:layout_centerHorizontal="true" />-->
+            <!--<TextView-->
+                <!--android:id="@+id/textSmaller"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textSize="10sp"-->
+                <!--android:text="@string/convert_activity"-->
+                <!--android:textColor="@color/kidupDarkBlue"-->
+                <!--android:layout_below="@+id/tapThisText"-->
+                <!--android:layout_centerHorizontal="true"/>-->
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dp"
