@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Kidup-kid.iml" filepath="$PROJECT_DIR$/Kidup-kid.iml" />
-      <module fileurl="file://C:\Users\t3math00\Desktop\Kidup-kid\Kidup-kid-master.iml" filepath="C:\Users\t3math00\Desktop\Kidup-kid\Kidup-kid-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Kidup-kid-master.iml" filepath="$PROJECT_DIR$/Kidup-kid-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../t3math00/Desktop/Kidup-kid/Kidup-kid-master.iml" filepath="$PROJECT_DIR$/../../../t3math00/Desktop/Kidup-kid/Kidup-kid-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

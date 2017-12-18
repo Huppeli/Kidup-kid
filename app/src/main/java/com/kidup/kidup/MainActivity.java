@@ -47,7 +47,8 @@ import static com.kidup.kidup.CountDownService.PREFS_NAME;
  */
 
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener {
+public class MainActivity extends AppCompatActivity {
+    private static final String TAG = MainActivity.class.getSimpleName();
 //
 //    @Override
 //    protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,6 +81,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public static TextView textViewTime;
     */
 
+    private BroadcastReceiver stepReceiver;
+
     boolean running = false;
 
     static float steps = 0;
@@ -106,11 +109,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if(switchState) {
             stopService(new Intent(this, CountDownService.class));
             stopService(new Intent(this, LockScreenService.class));
+            stopService(new Intent(this, StepCounter.class));
             Log.d("switch", "onCreate: stop the locikscreen");
         }
         else {
             startService(new Intent(this, CountDownService.class));
             startService(new Intent(this, LockScreenService.class));
+            startService(new Intent(this, StepCounter.class));
             Log.d("switch", "onCreate: start lockscreen");
         }
 
@@ -161,12 +166,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         pieView.setInnerBackgroundColor(getResources().getColor(R.color.colorWhite));
         pieView.setPieInnerPadding(70);
 
-
-        /* textViewTime.setText("00:00:00"); */
+        /* Get steps from file and initialize text view */
+        SharedPreferences settings = getSharedPreferences("fileName",0);
+        steps = settings.getFloat("savedSteps",0);
 
         /* Initialize pieview2 and set colors */
         pieView2 = (PieView) findViewById(R.id.pieView2);
-        pieView2.setInnerText("#### steps");
+        pieView2.setInnerText(String.valueOf(steps));
         pieView2.setPercentageBackgroundColor(getResources().getColor(R.color.kidupBrightBlue));
         pieView2.setMainBackgroundColor(getResources().getColor(R.color.colorGrey));
         pieView2.setTextColor(getResources().getColor(R.color.kidupDarkBlue));
@@ -257,6 +263,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         mIntent.putExtra("timeGot", timeGot);
                         MainActivity.this.startService(mIntent);
                         Log.d("VEIKKO2", "Sending more time");
+                        /* Send broadcast to stepCounter to reset current step amount */
+                        Intent oldSteps = new Intent("android.intent.oldstepsToService").putExtra("oldsteps", steps);
+                        sendBroadcast(oldSteps);
+                        steps = 0;
                     }
                 }
 
@@ -415,6 +425,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 //        long millis = (long) timeLeft;
 
         registerReceiver(br, new IntentFilter(CountDownService.BROADCAST_ACTION));
+
         Log.d("COUNTDOWNSERVICE", "Registered broadcast receiver");
         running = true;
 
@@ -424,12 +435,29 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         Sensor countSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         if (countSensor != null){
+            /*
             sensorManager.registerListener(this, countSensor,SensorManager.SENSOR_DELAY_UI);
+            */
 
         }
         else{
             Toast.makeText(this, getString(R.string.sensor_not_found), Toast.LENGTH_SHORT).show();
         }
+
+        IntentFilter intentFilterForStepService = new IntentFilter("android.intent.stepToMain");
+
+        stepReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                steps = intent.getFloatExtra("steps",0);
+                Log.i(TAG, "onReceive: " + steps);
+                updateStepUi(intent);
+            }
+        };
+
+        this.registerReceiver(stepReceiver, intentFilterForStepService);
+
+
 
 
 
@@ -470,6 +498,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
 
         unregisterReceiver(br);
+        /* unregisterReceiver(stepReceiver); */
 
 
 //        timePause = timeLeft;
@@ -522,7 +551,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Log.d("VEIKKO2","On destory" + value);
         Log.d("VEIKKO2", "On Destroy");
 
+
+        SharedPreferences settings = getSharedPreferences("fileName",0);
+        SharedPreferences.Editor editori = settings.edit();
+        editori.putFloat("savedSteps", steps);
+        editori.commit();
     }
+    /*
     @Override
     public void onSensorChanged(SensorEvent event) {
         if(stepsInSensor == -1){
@@ -535,6 +570,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if(running){
             steps = event.values[0] - lastCount - stepsInSensor;
             /* tv_steps.setText(String.valueOf(steps)); */
+    /*
             pieView2.setInnerText(String.valueOf(steps));
 
             if (!switchState) {
@@ -550,6 +586,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             Log.d(" VEIKKO2 Steps SC", String.valueOf(steps));
         }
     }
+    */
 
     private void updateGUI(Intent intent) {
         if (intent.getExtras() != null) {
@@ -561,13 +598,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             pieView.setInnerText(hms);
         }
     }
+    /* Function to update step ui */
+    private void updateStepUi(Intent intent) {
+        if (intent.getExtras() != null) {
+            steps = intent.getFloatExtra("steps",0);
+            Log.i(TAG, "updateStepUi: " + steps);
 
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
+            pieView2.setInnerText(String.valueOf(steps));
+        }
     }
 
-    /*
+        /*
     public static void createNotification() {
 
         NotificationCompat.Builder mBuilder =

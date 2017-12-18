@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
 import android.util.Log;
@@ -36,6 +37,7 @@ import java.util.concurrent.TimeUnit;
 public class LockScreenService extends Service implements View.OnClickListener {
 
 
+    private static final String TAG = LockScreenService.class.getSimpleName();
     private LinearLayout linearLayout;
     private WindowManager.LayoutParams layoutParams;
     private WindowManager windowManager;
@@ -46,6 +48,7 @@ public class LockScreenService extends Service implements View.OnClickListener {
     private long millisUntilFinished;
     private TextView tv_textViewTime;
     private String hms;
+    private float steps;
 
 
     public int onStartCommand (Intent intent, int flags, int startId) {
@@ -114,6 +117,10 @@ public class LockScreenService extends Service implements View.OnClickListener {
         tv_textViewTime = (TextView) linearLayout.findViewById(R.id.textViewTime);
         btnUnlock.setOnClickListener(this);
         tv_textViewTime.setText(hms + " ", TextView.BufferType.EDITABLE);
+        
+        IntentFilter intentFilterForStepService = new IntentFilter("android.intent.stepToMain");
+        registerReceiver(brStepReceiver, intentFilterForStepService);
+        Log.i(TAG, "init: ");
 
 
         /* Display time in lockscreen */
@@ -148,7 +155,7 @@ public class LockScreenService extends Service implements View.OnClickListener {
                 int newSteps = 0;
                 /* Save steps to file */
                 String saveLocation = "stepcount";
-                int stepsInt = Math.round(MainActivity.steps);
+                int stepsInt = Math.round(steps);
                 String input =  Integer.toString(stepsInt);
                 FileOutputStream outputStream;
                 try {
@@ -183,11 +190,14 @@ public class LockScreenService extends Service implements View.OnClickListener {
                     e.printStackTrace();
                 }
 
-                timeGot = MainActivity.steps * 5000;
+                timeGot = steps * 5000;
                 MainActivity.lastCount = MainActivity.lastCount + MainActivity.steps;
                 MainActivity.steps = 0;
                 stepsInLock = 0;
                 tv_StepInLock.setText(String.valueOf(stepsInLock) + " " + getString(R.string.steps), TextView.BufferType.EDITABLE);
+
+                Intent oldSteps = new Intent("android.intent.oldstepsToService").putExtra("oldsteps", steps);
+                sendBroadcast(oldSteps);
 
                 if (timeGot != 0) {
                     Intent mIntent = new Intent(LockScreenService.this, CountDownService.class);
@@ -226,6 +236,14 @@ public class LockScreenService extends Service implements View.OnClickListener {
 
                 init();
             }
+        }
+    };
+    BroadcastReceiver brStepReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            steps = intent.getFloatExtra("steps",0);
+            tv_StepInLock.setText(String.valueOf(steps));
+            Log.i(TAG, "onReceive: " + steps);
         }
     };
 

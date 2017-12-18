@@ -34,9 +34,11 @@ public class BootReceiver extends BroadcastReceiver {
         if(switchState) {
             context.stopService(new Intent(context, LockScreenService.class));
             context.stopService(new Intent(context, CountDownService.class));
+            context.stopService(new Intent(context, StepCounter.class));
         } else {
             context.startService(new Intent(context, CountDownService.class));
             context.startService(new Intent(context, LockScreenService.class));
+            context.startService(new Intent(context, StepCounter.class));
         }
         Log.d("switch", "onReceive: stop the locikscreen");
 
