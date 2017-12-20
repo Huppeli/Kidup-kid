@@ -31,7 +31,7 @@ public class BootReceiver extends BroadcastReceiver {
 
 
 
-        if(switchState) {
+        if(!switchState) {
             context.stopService(new Intent(context, LockScreenService.class));
             context.stopService(new Intent(context, CountDownService.class));
             context.stopService(new Intent(context, StepCounter.class));

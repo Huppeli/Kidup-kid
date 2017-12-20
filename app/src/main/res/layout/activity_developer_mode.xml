@@ -11,7 +11,7 @@
         android:id="@+id/switchToggle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/switch_disable_lock"
+        android:text="@string/switch_enable_lock"
         android:layout_marginBottom="100dp"/>
 
     <TextView

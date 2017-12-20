@@ -47,10 +47,11 @@ public class DeveloperMode extends AppCompatActivity {
                 editor.commit();
                 Log.d("MIKA","Lockscreen toggle");
                 if (switchToggle.isChecked()) {
-                    Toast.makeText(DeveloperMode.this, getString(R.string.toast_disable),
-                            Toast.LENGTH_LONG).show();
-                } else {
                     Toast.makeText(DeveloperMode.this, getString(R.string.toast_enable),
+                            Toast.LENGTH_LONG).show();
+
+                } else {
+                    Toast.makeText(DeveloperMode.this, getString(R.string.toast_disable),
                             Toast.LENGTH_LONG).show();
                 }
             }

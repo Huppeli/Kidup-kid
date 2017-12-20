@@ -11,12 +11,16 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.IBinder;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 
 
 public class StepCounter extends Service implements SensorEventListener {
 
+    public static final String STEP_TO_MAIN ="android.intent.stepToMain";
+    public static final String STEP_TO_MAIN_ONCREAT ="android.intent.stepToMainOnCreate";
+    public static final String STEP_TO_LOCK_ONSTART ="android.intent.stepToLockOnStart";
     private static final String TAG = "StepCounter";
     float lastCount = 0;
     float stepCount = 0;
@@ -56,17 +60,29 @@ public class StepCounter extends Service implements SensorEventListener {
         else {
             Toast.makeText(this, getString(R.string.sensor_not_found), Toast.LENGTH_SHORT).show();
         }
-
-
     }
+
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i(TAG, "onStartCommand:");
         Toast.makeText(this, "service starting", Toast.LENGTH_SHORT).show();
 
-
-
+        // Get Noti from mainOnCreate, request steps
+        if (intent != null) {
+            if (intent.hasExtra("mainActivityStarted")) {
+                Log.i(TAG, "Recieve noti from Main started");
+                Intent RTReturn = new Intent(STEP_TO_MAIN_ONCREAT);
+                RTReturn.putExtra("steps", stepCount);
+                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(RTReturn);
+            }
+            if (intent.hasExtra("LockScreenServiceStarted")) {
+                Log.i(TAG, "Recieve noti from Lockstarted");
+                Intent RTReturn = new Intent(STEP_TO_LOCK_ONSTART);
+                RTReturn.putExtra("steps", stepCount);
+                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(RTReturn);
+            }
+        }
         return START_STICKY;
     }
 
@@ -91,7 +107,7 @@ public class StepCounter extends Service implements SensorEventListener {
         stepCount++;
 
         Log.i(TAG, "onSensorChanged: " + stepsInSensor + stepCount + lastCount );
-        Intent intent = new Intent("android.intent.stepToMain").putExtra("steps", stepCount);
+        Intent intent = new Intent(STEP_TO_MAIN).putExtra("steps", stepCount);
         this.sendBroadcast(intent);
 
 
@@ -106,11 +122,15 @@ public class StepCounter extends Service implements SensorEventListener {
     BroadcastReceiver receiverfromMain = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            if (intent != null) {
+                if (intent.hasExtra("oldsteps")) {
+                    lastCount = intent.getFloatExtra("oldsteps",0);
+                    Log.i(TAG, "onReceive: " + lastCount);
 
-            lastCount = intent.getFloatExtra("oldsteps",0);
-            Log.i(TAG, "onReceive: " + lastCount);
+                    stepCount = 0;
+                }
+            }
 
-            stepCount = 0;
         }
     };
 

@@ -15,8 +15,10 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -49,24 +51,17 @@ import static com.kidup.kidup.CountDownService.PREFS_NAME;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
-//
-//    @Override
-//    protected void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        startService(new Intent(this, LockScreenService.class));
-//        finish();
-//    }
+
 
     RelativeLayout btnFinish;
 
-    // Button btnLock;
     RelativeLayout viewGridNumberTwo;
     ImageView pandaImage;
-//    Button enable;
 
     public static ComponentName compName;
     ActivityManager activityManager;
     static final int RESULT_ENABLE = 1;
+    static final int MAIN_STARTED = 2;
 
 
     SensorManager sensorManager;
@@ -93,20 +88,24 @@ public class MainActivity extends AppCompatActivity {
     boolean switchState;
     long millisUntilFinished = 0;
 
-//    float timePause = 0;
+    LocalBroadcastManager broadcastManager;
 
-//
-//    public static CountDownService.CounterClass timer = new CountDownService.CounterClass(0, 1000);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Send Notification that Main Started to StepCounterService
+        Intent startMain = new Intent(this, StepCounter.class);
+        startMain.putExtra("mainActivityStarted","true");
+        Log.i(TAG, "Send noti to Step");
+        startService(startMain);
 
         SharedPreferences getPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         String kid_name = getPrefs.getString("kid_name", null );
         Log.d("kid_name", "onCreate: " + kid_name);
         switchState = getPrefs.getBoolean("switch_toggle_lockscreen", false);
 
-        if(switchState) {
+        if(!switchState) {
             stopService(new Intent(this, CountDownService.class));
             stopService(new Intent(this, LockScreenService.class));
             stopService(new Intent(this, StepCounter.class));
@@ -123,39 +122,11 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i("CountDownService", "Started service");
 
-        /*btnLock = (Button) findViewById(R.id.btnLock); */
-
         activityManager = (ActivityManager)getSystemService(
                 Context.ACTIVITY_SERVICE);
         compName = new ComponentName(this, MyAdmin.class);
 
-
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-        // Remove default title text
-        //getSupportActionBar().setDisplayShowTitleEnabled(false);
-        //getSupportActionBar().setLogo(R.drawable.kidup_logo);
-
-        /*
-        FileOutputStream outputStream;
-        try {
-            String saveLocation = "stepcount";
-            String value = "0";
-            outputStream = openFileOutput(saveLocation, Context.MODE_PRIVATE);
-            outputStream.write(value.getBytes());
-            outputStream.close();
-        }
-        catch (Exception e) {
-
-        }
-        */
-
-
-
         btnFinish =(RelativeLayout) findViewById(R.id.btnFinish);
-
-
-        /*    textViewTime = (TextView) findViewById(R.id.textViewTime); */
 
         /* Initialize pieview and set colors */
         pieView = (PieView) findViewById(R.id.pieView);
@@ -341,7 +312,22 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        broadcastManager = LocalBroadcastManager.getInstance(this);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(StepCounter.STEP_TO_MAIN_ONCREAT);
+        broadcastManager.registerReceiver(reciveStepOnCreate, intentFilter);
     }
+
+    // Receive steps Oncreate and update UI
+    private BroadcastReceiver reciveStepOnCreate = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+                    Log.i(TAG, "Recive Step on Create");
+                    steps = intent.getFloatExtra("steps",0);
+                    Log.i(TAG, "onReceive: " + steps);
+                    updateStepUi(intent);
+        }
+    };
 
     private BroadcastReceiver br = new BroadcastReceiver() {
         @Override
@@ -444,7 +430,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, getString(R.string.sensor_not_found), Toast.LENGTH_SHORT).show();
         }
 
-        IntentFilter intentFilterForStepService = new IntentFilter("android.intent.stepToMain");
+        IntentFilter intentFilterForStepService = new IntentFilter(StepCounter.STEP_TO_MAIN);
 
         stepReceiver = new BroadcastReceiver() {
             @Override
@@ -456,11 +442,6 @@ public class MainActivity extends AppCompatActivity {
         };
 
         this.registerReceiver(stepReceiver, intentFilterForStepService);
-
-
-
-
-
     }
 
     @Override
@@ -498,11 +479,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         unregisterReceiver(br);
-        /* unregisterReceiver(stepReceiver); */
+//        unregisterReceiver(stepReceiver);
 
-
-//        timePause = timeLeft;
-//        timer.cancel();
         running = true;
         Log.d("running OP",String.valueOf(running));
     }
@@ -556,6 +534,9 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editori = settings.edit();
         editori.putFloat("savedSteps", steps);
         editori.commit();
+
+        broadcastManager.unregisterReceiver(reciveStepOnCreate);
+
     }
     /*
     @Override

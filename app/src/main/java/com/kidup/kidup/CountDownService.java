@@ -168,9 +168,11 @@ public class CountDownService extends Service {
                        /* MainActivity.pieView.setInnerText(hms); */
                         timeLeft = millisUntilFinished;
 
-                        Intent lockscreenIntent = new Intent(CountDownService.this, LockScreenService.class);
-                        lockscreenIntent.putExtra("timeToLock", millisUntilFinished);
-                        CountDownService.this.startService(lockscreenIntent);
+
+                        //TODO : Make this send by broadcast receiver
+//                        Intent lockscreenIntent = new Intent(CountDownService.this, LockScreenService.class);
+//                        lockscreenIntent.putExtra("timeToLock", millisUntilFinished);
+//                        CountDownService.this.startService(lockscreenIntent);
 
                         if ( timeLeft < 300000) {
                             Log.d("VEIKKO2","Time left is low");
@@ -299,10 +301,11 @@ public class CountDownService extends Service {
                 mIntent.putExtra("timeLeft", millisUntilFinished);
                 CountDownService.this.startService(mIntent);
 
-                Intent lockscreenIntent = new Intent(CountDownService.this, LockScreenService.class);
-                lockscreenIntent.putExtra("timeToLock", millisUntilFinished);
-                CountDownService.this.startService(lockscreenIntent);
-                Log.d("VEIKKO2", "Time left ontick in service" + timeLeft);
+                //TODO: Make this as broadcast receiver
+//                Intent lockscreenIntent = new Intent(CountDownService.this, LockScreenService.class);
+//                lockscreenIntent.putExtra("timeToLock", millisUntilFinished);
+//                CountDownService.this.startService(lockscreenIntent);
+//                Log.d("VEIKKO2", "Time left ontick in service" + timeLeft);
 
 //                if (timeLeft <= 100000){
 //                    boolean timenoti = true;

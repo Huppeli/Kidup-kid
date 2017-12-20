@@ -10,6 +10,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,13 +50,14 @@ public class LockScreenService extends Service implements View.OnClickListener {
     private TextView tv_textViewTime;
     private String hms;
     private float steps;
+    LocalBroadcastManager broadcastManager;
 
 
     public int onStartCommand (Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
         if (intent!= null) {
             if (intent.getExtras()!= null) {
-            if (intent.hasExtra("timeToLock")) {
+                if (intent.hasExtra("timeToLock")) {
                 millisUntilFinished = intent.getLongExtra("timeToLock", 0);
 
              /* Format time to HH:MM:SS */
@@ -64,24 +66,34 @@ public class LockScreenService extends Service implements View.OnClickListener {
                         TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)) );
                 Log.d("time on lock", "onStartCommand: " + hms);
 //                tv_textViewTime.setText(" ");
-
-            }
-
-            if (intent.hasExtra("stepsToLock")){
-                stepsInLock = intent.getFloatExtra("stepsToLock", 0);
-                int steps = Math.round(stepsInLock);
-                if (steps != 0) {
-//                    tv_StepInLock.setText(String.valueOf(steps) + " " + getString(R.string.steps), TextView.BufferType.EDITABLE);
                 }
-            }
             }
         }
 
+        // Send Notification that Lock Started to StepCounterService
+        Intent startLock = new Intent(this, StepCounter.class);
+        startLock.putExtra("LockScreenServiceStarted","true");
+        Log.i(TAG, "Send noti to Step");
+        startService(startLock);
 
         return START_STICKY;
 
 
     }
+
+    // Receive steps Oncreate and update UI
+    private BroadcastReceiver reciveStepOnStart = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent!= null) {
+                if (intent.hasExtra("steps")) {
+                    Log.i(TAG, "Recive Step on Start");
+                    steps = intent.getFloatExtra("steps",0);
+                }
+            }
+        }
+    };
+
     @Override
     public IBinder onBind(Intent intent) {
         // Not used
@@ -91,7 +103,6 @@ public class LockScreenService extends Service implements View.OnClickListener {
     @Override
     public void onCreate() {
         super.onCreate();
-
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
         registerReceiver(screenReceiver, intentFilter);
         windowManager = ((WindowManager) getSystemService(WINDOW_SERVICE));
@@ -103,6 +114,11 @@ public class LockScreenService extends Service implements View.OnClickListener {
                         | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION,// hiding the home screen button
                 PixelFormat.TRANSLUCENT);
+
+        broadcastManager = LocalBroadcastManager.getInstance(this);
+        IntentFilter IntentGotFromStep = new IntentFilter();
+        IntentGotFromStep.addAction(StepCounter.STEP_TO_LOCK_ONSTART);
+        broadcastManager.registerReceiver(reciveStepOnStart, IntentGotFromStep);
     }
 
 
@@ -112,13 +128,14 @@ public class LockScreenService extends Service implements View.OnClickListener {
         windowManager.addView(linearLayout, layoutParams);
         ((LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE)).inflate(R.layout.lock_screen, linearLayout);
         tv_StepInLock = (TextView) linearLayout.findViewById(R.id.tv_StepInLock);
+        tv_StepInLock.setText(String.valueOf(steps));
         View btnUnlock = linearLayout.findViewById(R.id.btn_close);
         btn_getTimeFromLock = (Button) linearLayout.findViewById(R.id.btn_getTimeFromLock);
         tv_textViewTime = (TextView) linearLayout.findViewById(R.id.textViewTime);
         btnUnlock.setOnClickListener(this);
         tv_textViewTime.setText(hms + " ", TextView.BufferType.EDITABLE);
         
-        IntentFilter intentFilterForStepService = new IntentFilter("android.intent.stepToMain");
+        IntentFilter intentFilterForStepService = new IntentFilter(StepCounter.STEP_TO_MAIN);
         registerReceiver(brStepReceiver, intentFilterForStepService);
         Log.i(TAG, "init: ");
 
@@ -224,8 +241,9 @@ public class LockScreenService extends Service implements View.OnClickListener {
     @Override
     public void onDestroy () {
         unregisterReceiver(screenReceiver);
-//            stopService(new Intent(this, CountDownService.class));
+        broadcastManager.unregisterReceiver(reciveStepOnStart);
         super.onDestroy();
+
     }
 
     BroadcastReceiver screenReceiver = new BroadcastReceiver() {

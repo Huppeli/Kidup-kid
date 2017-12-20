@@ -30,7 +30,7 @@
     <!-- Task.xml -->
     <string name="register">Register</string>
     <!-- activity_developer_mode.xml -->
-    <string name="switch_disable_lock">Switch to disable Lockscreen</string>
+    <string name="switch_enable_lock">Switch to enable Lockscreen</string>
     <string name="change_kid_id">Change the Kid id</string>
     <!-- CountDownService.java -->
     <string name="notification_hey">Hey you!</string>
