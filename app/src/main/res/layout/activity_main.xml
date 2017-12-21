@@ -134,7 +134,7 @@
                 android:id="@+id/yourTasks"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/helping_hands"
+                android:text="@string/tasks_remaining"
                 android:textSize="16sp"
                 android:textColor="@color/kidupBrightBlue"
                 android:textStyle="bold"
@@ -165,21 +165,6 @@
                 android:layout_alignBottom="@+id/currentTasks"
                 android:layout_toRightOf="@+id/currentTasks"
                 android:layout_toEndOf="@+id/currentTasks" />
-
-            <TextView
-                android:id="@+id/fillerTasks"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tasks_remaining"
-                android:layout_marginTop="30dp"
-                android:textSize="16dp"
-                android:textColor="@color/kidupDarkBlue"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:layout_marginBottom="-30dp"
-                android:layout_centerInParent="true"
-                android:layout_below="@id/currentTasks"
-                />
 
         </RelativeLayout>
     </LinearLayout>

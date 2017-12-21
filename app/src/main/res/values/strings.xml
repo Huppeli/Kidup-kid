@@ -12,7 +12,6 @@
     <string name="your_screentime">Your screentime</string>
     <string name="tap_this">Tap this</string>
     <string name="convert_activity">Convert activity into screentime</string>
-    <string name="helping_hands">Helping hands</string>
     <string name="tasks_remaining">Tasks remaining"</string>
     <string name="activity">Activity</string>
     <string name="daily_total">Daily target: 6600</string>
@@ -30,14 +29,24 @@
     <!-- Task.xml -->
     <string name="register">Register</string>
     <!-- activity_developer_mode.xml -->
-    <string name="switch_enable_lock">Switch to enable Lockscreen</string>
+    <string name="switch_enable_lock">Lockscreen off/on</string>
     <string name="change_kid_id">Change the Kid id</string>
+    <!-- dialog_thankyou.xml -->
+    <string name="dialog_thankyou">Thank you for participating in our open beta.</string>
+    <string name="dialog_questions">If you have any feedback about our application please email us at</string>
+    <string name="dialog_thanks_oamk">We would not be here without the awesome support from OAMK labs.</string>
+    <string name="dialog_thanks_big">Extra thanks to:</string>
+    <string name="dialog_blair">Blair</string>
+    <string name="dialog_kp">KP</string>
+    <string name="dialog_janne">Janne</string>
+    <string name="dialog_ulla">Ulla-Maija</string>
     <!-- CountDownService.java -->
     <string name="notification_hey">Hey you!</string>
     <string name="notification_you">You have less than 5 minutes left!</string>
     <!-- DeveloperMode.java -->
-    <string name="toast_disable">Disable the lockscreen</string>
-    <string name="toast_enable">Enable the lockscreen</string>
+    <string name="toast_disable">Lockscreen is now disabled, please shutdown application fully to save settings</string>
+    <string name="toast_enable">Lockscreen is now enabled, please shutdown application fully to save settings</string>
     <string name="toast_wrong">Wrong id for kid</string>
+    <string name="alert_title">Save settings</string>
 
 </resources>

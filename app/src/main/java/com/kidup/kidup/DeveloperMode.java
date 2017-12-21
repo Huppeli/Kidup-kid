@@ -1,7 +1,9 @@
 package com.kidup.kidup;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,11 +48,33 @@ public class DeveloperMode extends AppCompatActivity {
                 editor.putBoolean("switch_toggle_lockscreen", switchToggle.isChecked());
                 editor.commit();
                 Log.d("MIKA","Lockscreen toggle");
+                AlertDialog.Builder builder;
+                builder = new AlertDialog.Builder(DeveloperMode.this, android.R.style.Theme_Material_Dialog_Alert);
                 if (switchToggle.isChecked()) {
+                    builder.setTitle(R.string.alert_title)
+                            .setMessage(R.string.toast_enable)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    })
+                    .setIcon(R.drawable.kidup_logo_icon)
+                    .show();
                     Toast.makeText(DeveloperMode.this, getString(R.string.toast_enable),
                             Toast.LENGTH_LONG).show();
 
                 } else {
+                    builder.setTitle(R.string.alert_title)
+                            .setMessage(R.string.toast_disable)
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            })
+                            .setIcon(R.drawable.kidup_logo_icon)
+                            .show();
                     Toast.makeText(DeveloperMode.this, getString(R.string.toast_disable),
                             Toast.LENGTH_LONG).show();
                 }
