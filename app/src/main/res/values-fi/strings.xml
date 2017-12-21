@@ -8,7 +8,6 @@
     <string name="tasks_remaining">Tehtäviä jäljellä</string>
     <string name="tap_this">Paina tästä</string>
     <string name="last_update">Viimeksi päivitetty: Nyt</string>
-    <string name="helping_hands">Auttavia käsiä</string>
     <string name="daily_total">Päivittäinen tavoite: 6600</string>
     <string name="activity_level">Aktiivisuus taso</string>
     <string name="convert_activity">Muunna askeleet ruutuajaksi</string>
@@ -24,11 +23,13 @@
     <string name="notification_you">Sinulla on vähemmän kuin 5 minuuttia aikaa!</string>
     <string name="register">Rekisteröi</string>
     <string name="screentime_left">Ruutuaikaa jäljellä</string>
-    <string name="switch_disable_lock">Nappula jolla poistetaan lukitus</string>
-    <string name="toast_disable">Poista lukitus</string>
-    <string name="toast_enable">Ota käyttöön lukitus</string>
+    <string name="toast_disable">Lukitus on pois käytöstä. Sulje sovellus, jotta muutokset tallentuvat</string>
+    <string name="toast_enable">Lukitus on nyt käytössä. Sulje sovellus, jotta muutokset tallentuvat.</string>
     <string name="toast_wrong">Väärä tunnus</string>
     <string name="toast_successful_convert_step_to_time">Sait: </string>
     <string name="steps">Askeleet</string>
     <string name="seconds">sekuntia</string>
+    <string name="switch_disable_lock"></string>
+    <string name="switch_enable_lock">Näytönlukitus pois päältä/päällä</string>
+    <string name="alert_title">Tallenna muutokset</string>
 </resources>
