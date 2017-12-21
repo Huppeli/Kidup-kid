@@ -12,8 +12,7 @@
     <string name="activity_level">Aktiivisuus taso</string>
     <string name="convert_activity">Muunna askeleet ruutuajaksi</string>
     <string name="total_today">"Askeleita tänään: "</string>
-    <string name="sensor_not_found">Ei sensoria</string>
-    <string name="button_gettime">Hae aikaa</string>
+    <string name="sensor_not_found">Askel sensoria ei löydetty</string>
     <string name="button_submit">Lähetä</string>
     <string name="button_unlock">Avaa</string>
     <string name="change_kid_id">Vaihda lapsen tunnus</string>
@@ -32,4 +31,11 @@
     <string name="switch_disable_lock"></string>
     <string name="switch_enable_lock">Näytönlukitus pois päältä/päällä</string>
     <string name="alert_title">Tallenna muutokset</string>
+    <string name="dialog_blair"></string>
+    <string name="dialog_questions">\"Mikäli haluat antaa palautetta voit lähettää osoitteeseen dev.kidup@gmail.com \"</string>
+    <string name="dialog_thanks_big">Erityiset kiitokset:</string>
+    <string name="dialog_thanks_oamk">Emme olisi päässeet näin pitkälle ilman OAMK LAB:in tukea.</string>
+    <string name="dialog_thankyou">Kiitos, kun latasit sovelluksemme.</string>
+    <string name="button_gettime">Muunna askeleet ajaksi</string>
+    <string name="dialog_instructions">Ohjeet lukituksen aktivoimiseksi löydät Playstore sivuilta</string>
 </resources>

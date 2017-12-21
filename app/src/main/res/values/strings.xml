@@ -22,7 +22,7 @@
     <string name="button_submit">Submit</string>
     <string name="description">Description about feature</string>
     <!-- list_task.xml -->
-    <string name="button_gettime">Get time</string>
+    <string name="button_gettime">Transfer steps to time</string>
     <!-- Lock_screen.xml -->
     <string name="button_unlock">Unlock</string>
     <string name="screentime_left">Screentime left:</string>
@@ -33,13 +33,16 @@
     <string name="change_kid_id">Change the Kid id</string>
     <!-- dialog_thankyou.xml -->
     <string name="dialog_thankyou">Thank you for participating in our open beta.</string>
-    <string name="dialog_questions">If you have any feedback about our application please email us at</string>
+    <string name="dialog_questions">If you have any feedback about our application please email us at dev.kidup@gmail.com</string>
     <string name="dialog_thanks_oamk">We would not be here without the awesome support from OAMK labs.</string>
-    <string name="dialog_thanks_big">Extra thanks to:</string>
-    <string name="dialog_blair">Blair</string>
-    <string name="dialog_kp">KP</string>
-    <string name="dialog_janne">Janne</string>
+    <string name="dialog_instructions">To activate lockscreen go to kidup kid version in Playstore to find out instructions</string>
+    <string name="dialog_thanks_big">Special thanks to:</string>
+    <string name="dialog_blair">Blair,</string>
+    <string name="dialog_kp">KP,</string>
+    <string name="dialog_janne">Janne,</string>
     <string name="dialog_ulla">Ulla-Maija</string>
+    <string name="dialog_thanks_names">Blair, Kari-Pekka, Janne, Ulla-Maija</string>
+    <string name="dialog_our_name">KIDUP team: Tung, Mika, Michelle, Klaudia, Tuomo, Armando, Hristijan</string>
     <!-- CountDownService.java -->
     <string name="notification_hey">Hey you!</string>
     <string name="notification_you">You have less than 5 minutes left!</string>
@@ -48,5 +51,4 @@
     <string name="toast_enable">Lockscreen is now enabled, please shutdown application fully to save settings</string>
     <string name="toast_wrong">Wrong id for kid</string>
     <string name="alert_title">Save settings</string>
-
 </resources>

@@ -8,6 +8,7 @@ import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -19,9 +20,11 @@ import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -52,6 +55,7 @@ import static com.kidup.kidup.CountDownService.PREFS_NAME;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    public static final String FILENAME = "Dialog_file";
     public static final String BUTTON_GET_TIME_PRESS = "button_get_time_pressed";
     RelativeLayout btnFinish;
 
@@ -93,6 +97,34 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /* Display thank you dialog for first run*/
+        SharedPreferences getFile = getSharedPreferences(FILENAME, MODE_PRIVATE);
+        boolean firstTimeRun = getFile.getBoolean("firstTimeRun", true);
+        if (firstTimeRun) {
+            AlertDialog.Builder builder;
+            builder = new AlertDialog.Builder(MainActivity.this);
+
+            builder.setTitle("Thanks")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    })
+                    .setIcon(R.drawable.panda_proud_gray);
+
+            LayoutInflater inflater = getLayoutInflater();
+            View dialogLayout = inflater.inflate(R.layout.dialog_thankyou, null);
+
+            builder.setView(dialogLayout);
+            builder.show();
+
+            /* Save that its not first time run */
+            SharedPreferences.Editor editor = getSharedPreferences(FILENAME, MODE_PRIVATE).edit();
+            editor.putBoolean("firstTimeRun", false);
+            editor.commit();
+        }
 
         // Send Notification that Main Started to StepCounterService
         Intent startMain = new Intent(this, StepCounter.class);
