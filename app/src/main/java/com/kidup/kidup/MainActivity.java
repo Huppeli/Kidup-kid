@@ -52,7 +52,7 @@ import static com.kidup.kidup.CountDownService.PREFS_NAME;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
-
+    public static final String BUTTON_GET_TIME_PRESS = "button_get_time_pressed";
     RelativeLayout btnFinish;
 
     RelativeLayout viewGridNumberTwo;
@@ -229,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
                 steptotalText.setText(getString(R.string.total_today) + input);
 
                 if (timeGot != 0 ){
-                    if (!switchState) {
+                    if (switchState) {
                         Intent mIntent = new Intent(MainActivity.this, CountDownService.class);
                         mIntent.putExtra("timeGot", timeGot);
                         MainActivity.this.startService(mIntent);
@@ -237,36 +237,18 @@ public class MainActivity extends AppCompatActivity {
                         /* Send broadcast to stepCounter to reset current step amount */
                         Intent oldSteps = new Intent("android.intent.oldstepsToService").putExtra("oldsteps", steps);
                         sendBroadcast(oldSteps);
+                        Intent buttonPressed = new Intent(BUTTON_GET_TIME_PRESS).putExtra("buttonPressed", "true");
+                        Log.d(TAG, "onClick:  SENDING NOTI THAT BUTTON PRESS");
+                        sendBroadcast(buttonPressed);
                         steps = 0;
                     }
                 }
 
-//                if(!timer_was_touched){
-//                    timer.cancel();
-//                    timer = new CounterClass((long)timeLeft,1000 );
-//
-//
-//                    timer.start();
-//                    timer_was_touched = true;
-//                    timeGot= 0;
-//                }
-//                else{
-//                    timer.cancel();
-//                    timer = new CounterClass((long)timeLeft,1000);
-//
-//                    timer.start();
-//                    timer_was_touched = true;
-//                    timeGot= 0;
-//                }
-//                timer.cancel();
-//                timer = new CountDownService.CounterClass((long)timeLeft,1000);
-//
-//                timer.start();
-//                timer_was_touched = true
                 lastCount = lastCount + steps;
                 /* tv_steps.setText("0"); */
                 pieView2.setInnerText("0");
                 steps = 0;
+
 
                 /* Change image based on steps */
                 pandaImage = (ImageView)findViewById(R.id.pandaImage);

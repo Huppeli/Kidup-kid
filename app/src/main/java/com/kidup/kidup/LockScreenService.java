@@ -45,30 +45,14 @@ public class LockScreenService extends Service implements View.OnClickListener {
     private Button btn_getTimeFromLock;
     private float timeGot;
     private TextView tv_StepInLock;
-    private float stepsInLock;
     private long millisUntilFinished;
     private TextView tv_textViewTime;
-    private String hms;
     private float steps;
     LocalBroadcastManager broadcastManager;
 
 
     public int onStartCommand (Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
-        if (intent!= null) {
-            if (intent.getExtras()!= null) {
-                if (intent.hasExtra("timeToLock")) {
-                millisUntilFinished = intent.getLongExtra("timeToLock", 0);
-
-             /* Format time to HH:MM:SS */
-                hms = String.format("%02d:%02d:%02d" , TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
-                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)-TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
-                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)) );
-                Log.d("time on lock", "onStartCommand: " + hms);
-//                tv_textViewTime.setText(" ");
-                }
-            }
-        }
 
         // Send Notification that Lock Started to StepCounterService
         Intent startLock = new Intent(this, StepCounter.class);
@@ -121,8 +105,6 @@ public class LockScreenService extends Service implements View.OnClickListener {
         broadcastManager.registerReceiver(reciveStepOnStart, IntentGotFromStep);
     }
 
-
-
     private void init() {
         linearLayout = new LinearLayout(this);
         windowManager.addView(linearLayout, layoutParams);
@@ -133,37 +115,16 @@ public class LockScreenService extends Service implements View.OnClickListener {
         btn_getTimeFromLock = (Button) linearLayout.findViewById(R.id.btn_getTimeFromLock);
         tv_textViewTime = (TextView) linearLayout.findViewById(R.id.textViewTime);
         btnUnlock.setOnClickListener(this);
-        tv_textViewTime.setText(hms + " ", TextView.BufferType.EDITABLE);
-        
+
+        registerReceiver(br, new IntentFilter(CountDownService.BROADCAST_ACTION));
+
         IntentFilter intentFilterForStepService = new IntentFilter(StepCounter.STEP_TO_MAIN);
         registerReceiver(brStepReceiver, intentFilterForStepService);
+        registerReceiver(receiverButtonPressedfromMain, new IntentFilter(MainActivity.BUTTON_GET_TIME_PRESS));
         Log.i(TAG, "init: ");
 
 
         /* Display time in lockscreen */
-//        try {
-//            String filename = "myfile";
-//            FileInputStream inputStream = openFileInput(filename);
-//            BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
-//            StringBuilder total = new StringBuilder();
-//            String line;
-//            while ((line = r.readLine()) != null) {
-//                total.append(line);
-//            }
-//            r.close();
-//            inputStream.close();
-//            Log.d("FILE", "File contents: " + total);
-//
-//            long millisUntilFinished = Long.parseLong(String.valueOf(total));
-//            /* Format time to HH:MM:SS */
-//            String hms = String.format("%02d:%02d:%02d" , TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
-//                    TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)-TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
-//                    TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)) );
-//            /* Display value in textview */
-//            txtTextView.setText(hms);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
 
 
         btn_getTimeFromLock.setOnClickListener(new View.OnClickListener() {
@@ -210,8 +171,8 @@ public class LockScreenService extends Service implements View.OnClickListener {
                 timeGot = steps * 5000;
                 MainActivity.lastCount = MainActivity.lastCount + MainActivity.steps;
                 MainActivity.steps = 0;
-                stepsInLock = 0;
-                tv_StepInLock.setText(String.valueOf(stepsInLock) + " " + getString(R.string.steps), TextView.BufferType.EDITABLE);
+                steps = 0;
+                tv_StepInLock.setText(String.valueOf(steps) + " " + getString(R.string.steps), TextView.BufferType.EDITABLE);
 
                 Intent oldSteps = new Intent("android.intent.oldstepsToService").putExtra("oldsteps", steps);
                 sendBroadcast(oldSteps);
@@ -230,18 +191,16 @@ public class LockScreenService extends Service implements View.OnClickListener {
 
     @Override
     public void onClick (View view){
-//        if (MainActivity.timeLeft > 0) {
-//
-//            MainActivity.startTimer();
-
         windowManager.removeView(linearLayout);
         linearLayout = null;
-//        }
     }
+
     @Override
     public void onDestroy () {
         unregisterReceiver(screenReceiver);
         broadcastManager.unregisterReceiver(reciveStepOnStart);
+        unregisterReceiver(brStepReceiver);
+        unregisterReceiver(receiverButtonPressedfromMain);
         super.onDestroy();
 
     }
@@ -256,6 +215,7 @@ public class LockScreenService extends Service implements View.OnClickListener {
             }
         }
     };
+
     BroadcastReceiver brStepReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -265,6 +225,39 @@ public class LockScreenService extends Service implements View.OnClickListener {
         }
     };
 
+    BroadcastReceiver br = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateGUI(intent);
+        }
+    };
 
+    // format and show time
+    private void updateGUI(Intent intent) {
+        if (intent != null) {
+            if (intent.hasExtra("countdown")) {
+                millisUntilFinished = intent.getLongExtra("countdown", 0);
+                Log.d("COUNTDOWNSERVICEINLOCK" , "countdown seconds remaining: " + millisUntilFinished / 1000);
+                String hms = String.format("%02d:%02d:%02d" , TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
+                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)-TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
+                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)) );
+                tv_textViewTime.setText(hms + " ", TextView.BufferType.EDITABLE);
+            }
+        }
+    }
+
+    BroadcastReceiver receiverButtonPressedfromMain = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d(TAG, "onReceive: Recived noti button pressed");
+            if (intent != null) {
+                if (intent.hasExtra("buttonPressed")) {
+                    steps = 0;
+                    tv_StepInLock.setText(String.valueOf(steps) + " " + getString(R.string.steps), TextView.BufferType.EDITABLE);
+                }
+            }
+
+        }
+    };
 
 }
